@@ -11,7 +11,12 @@ This repository maintains the inspection-oriented documentation and evidence bun
 - Change control policy for audit continuity
 
 ## Where Evidence Bundles Are Stored
-- Relative path (placeholder): `TODO_RELATIVE_PATH_TO_EVIDENCE_BUNDLES/`
+- Default evidence root (repo-local): `audit/evidence/`
+- Override (server evidence root): `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
+- Bundle layout: `<root>/<YYYY-MM-DD>/<bundle_id>/`
+
+Notes:
+- `<root>` resolves to `$EUDR_DMI_EVIDENCE_ROOT` if set; otherwise `audit/evidence/`.
 
 ## How to Run
 - See the runbook: [docs/30_runbook.md](docs/30_runbook.md)
@@ -26,4 +31,3 @@ This repository maintains the inspection-oriented documentation and evidence bun
 ## Non-goals
 - This project consumes `geospatial_dmi`.
 - No platform architecture duplication: do not copy, restate, or re-document `geospatial_dmi` architecture in this repository; only reference canonical entrypoints (TODO: add links/paths once confirmed).
-- 
