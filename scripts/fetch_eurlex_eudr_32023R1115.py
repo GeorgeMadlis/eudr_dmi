@@ -144,8 +144,12 @@ def _best_fallback_fingerprint(results: list[FetchResult]) -> dict[str, Any]:
     eli = by_name.get("eli_oj")
 
     return {
-        "pdf": None if pdf is None else {"sha256": pdf.sha256, **_headers_fingerprint(pdf)},
-        "html": None if html is None else {"sha256": html.sha256, **_headers_fingerprint(html)},
+        "pdf": None
+        if pdf is None or pdf.error is not None or pdf.sha256 is None
+        else {"sha256": pdf.sha256, **_headers_fingerprint(pdf)},
+        "html": None
+        if html is None or html.error is not None or html.sha256 is None
+        else {"sha256": html.sha256, **_headers_fingerprint(html)},
         "eli_oj": None if eli is None else {"sha256": eli.sha256, **_headers_fingerprint(eli)},
     }
 
@@ -250,6 +254,12 @@ def _compute_needs_update(
     if extracted_fields.get("summary_last_update") != prev_summary_last_update:
         reasons.append("summary_last_update_changed")
 
+    content_gate_failures = extracted_fields.get("content_gate_failures")
+    if isinstance(content_gate_failures, list):
+        for item in content_gate_failures:
+            if isinstance(item, str) and item:
+                reasons.append(item)
+
     needs_update = len(reasons) > 0
     return needs_update, sorted(set(reasons)), prev_date
 
@@ -310,6 +320,47 @@ def _result_from_fetch(
             sha256=None,
             error=error,
         )
+
+    if name == "pdf":
+        if not body.startswith(b"%PDF-"):
+            if out_path.exists():
+                try:
+                    out_path.unlink()
+                except Exception:
+                    pass
+            return FetchResult(
+                name=name,
+                url=url,
+                http_status=status,
+                content_type=content_type,
+                content_length=len(body),
+                etag=etag,
+                last_modified=last_modified,
+                stored_path=None,
+                sha256=None,
+                error="unexpected_signature",
+            )
+
+    if name == "html":
+        marker = f"CELEX:{CELEX}".encode()
+        if marker not in body:
+            if out_path.exists():
+                try:
+                    out_path.unlink()
+                except Exception:
+                    pass
+            return FetchResult(
+                name=name,
+                url=url,
+                http_status=status,
+                content_type=content_type,
+                content_length=len(body),
+                etag=etag,
+                last_modified=last_modified,
+                stored_path=None,
+                sha256=None,
+                error="unexpected_content_type",
+            )
 
     _write_bytes(out_path, body)
     digest = sha256_file(out_path)
@@ -446,9 +497,19 @@ def run_mirror(*, out_base: Path, run_date: str, repo_root: Path) -> Path:
             summary_path.read_text(encoding="utf-8", errors="replace")
         )
 
+    content_gate_failures: list[str] = []
+    for r in results:
+        if r.name == "pdf" and r.error == "unexpected_signature":
+            content_gate_failures.append("pdf_unexpected_signature")
+        if r.name == "html" and r.error == "unexpected_content_type":
+            content_gate_failures.append("html_unexpected_content_type")
+
     status = "complete" if all(r.error is None for r in results) else "partial"
 
-    extracted_fields: dict[str, Any] = {"summary_last_update": summary_last_update}
+    extracted_fields: dict[str, Any] = {
+        "summary_last_update": summary_last_update,
+        "content_gate_failures": sorted(content_gate_failures),
+    }
     entrypoint_status = _entrypoint_status(
         entrypoint_url=URL_LSU_ENTRY,
         lsu_result=lsu_result,

@@ -466,6 +466,64 @@ class TestEurlexMirror(unittest.TestCase):
             self.assertFalse((out_base / "metadata.json").exists())
             self.assertFalse((out_base / "entrypoint_status.json").exists())
 
+    def test_pdf_signature_gate_rejects_poisoned_body(self):
+        with tempfile.TemporaryDirectory() as td:
+            out_base = Path(td)
+
+            def fake_urlopen(req, timeout=20):  # noqa: ARG001
+                url = req.full_url
+                if "summary" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>Last update 22.5.2025</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "legal-content/EN/LSU/" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>EUDR digital twin entry</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "TXT/PDF" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html>not a pdf</html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "legal-content/EN/TXT/" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html>CELEX:32023R1115</html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "eli/reg/2023/1115/oj/eng" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html>ok</html>",
+                        headers={"content-type": "text/html"},
+                    )
+                return _FakeResponse(status=404, body=b"", headers={})
+
+            with patch.object(_SCRIPT, "urlopen", new=fake_urlopen):
+                run_dir = run_mirror(
+                    out_base=out_base,
+                    run_date="2026-01-21",
+                    repo_root=Path(__file__).resolve().parents[1],
+                )
+
+            self.assertFalse((run_dir / "regulation.pdf").exists())
+
+            meta = json.loads((run_dir / "metadata.json").read_text(encoding="utf-8"))
+            pdf_sources = [s for s in meta["sources"] if s["name"] == "pdf"]
+            self.assertEqual(len(pdf_sources), 1)
+            self.assertEqual(pdf_sources[0]["error"], "unexpected_signature")
+            self.assertIsNone(pdf_sources[0]["sha256"])
+
+            self.assertIn(
+                "pdf_unexpected_signature",
+                meta["extracted_fields"]["content_gate_failures"],
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
