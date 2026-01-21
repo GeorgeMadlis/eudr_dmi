@@ -26,34 +26,41 @@ These artifacts are expected to exist inside a compliant evidence bundle (see [d
 
 | Artifact | Semantics | Acceptance criteria |
 |---|---|---|
-| `outputs/articles/art_09.json` (TODO: finalize path/name) | Article 09 control-level results, including statuses and evidence references. | File is present; parseable JSON; references only in-bundle paths; control ids map to the spine. |
+| `art09_info_collection.json` (scaffold) | Article 09 placeholder output with input echo and TODO integration markers. | File is present; parseable JSON; references only in-bundle paths (when added); control ids map to the spine (TODO). |
 | `outputs/summary.json` | Run-level outcome summary including PASS/FAIL/UNDETERMINED and reasons. | `status` valid; includes references to Article 09 controls when applicable. |
-| `manifest.json` + `hashes.sha256` | Integrity and completeness proof for all artifacts. | Hashes recompute and match; manifest lists Article 09 artifacts. |
+| `manifest.sha256` (scaffold) | Stable SHA-256 manifest for deterministic files only. | Manifest is present; entries are sorted; hashes recompute and match. |
 | `provenance/provenance.json` | Provenance records for dependencies used by Article 09 checks. | Required provenance fields present for each dependency used by this Article. |
 
-## How to run (TODO)
-Commands are intentionally placeholders until the generator interface is finalized.
+## How to run (scaffold)
+This scaffold creates a minimal, deterministic evidence bundle skeleton. Integration to `geospatial_dmi` entrypoints is TODO, but the evidence contract (bundle layout + deterministic artifacts + hashing) is already enforced.
 
-1. Preflight
-   - `TODO_COMMAND_PREPARE_ENV`
-   - `TODO_COMMAND_VALIDATE_INPUTS`
-2. Generate Article 09 evidence
-   - `TODO_COMMAND_GENERATE_ART_09_EVIDENCE`
-3. Write/refresh manifest and hashes
-   - `TODO_COMMAND_WRITE_MANIFEST`
-   - `TODO_COMMAND_WRITE_HASHES`
+Evidence root policy:
+- Default repo-local: `audit/evidence/`
+- Override (server): `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
+- Layout: `<root>/<YYYY-MM-DD>/<bundle_id>/`
+
+Example command:
+```sh
+python -m eudr_dmi.articles.art_09.runner \
+  --aoi-file /path/to/aoi.geojson \
+  --commodity coffee \
+  --from-date 2026-01-01 \
+  --to-date 2026-01-15
+```
 
 ## How to Inspect Evidence (Step-by-step)
-1. Locate the evidence bundle root: `TODO_RELATIVE_PATH_TO_EVIDENCE_BUNDLES/<bundle_id>/`.
+1. Locate the evidence bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/`.
+   - Default `<root>`: `audit/evidence/`
+   - Override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
 2. Verify bundle integrity:
-   - Recompute SHA-256 for each file referenced by `hashes.sha256` (see [docs/30_runbook.md](../../30_runbook.md)).
-   - Confirm `manifest.json` lists `outputs/articles/art_09.json` (or the finalized equivalent).
+   - Recompute SHA-256 for each file referenced by `manifest.sha256`.
+   - Confirm `manifest.sha256` lists `bundle_metadata.json` and `art09_info_collection.json`.
 3. Inspect Article 09 results:
-   - Open `outputs/articles/art_09.json`.
-   - Confirm each control result references an obligation/control id present in the spine.
+   - Open `art09_info_collection.json`.
+   - Confirm inputs are echoed correctly and TODO integration markers are present.
 4. Trace evidence references:
-   - For each control marked FAIL or UNDETERMINED, open the referenced artifacts and confirm the reason is supported.
+   - (TODO) Once control outcomes are implemented, open referenced artifacts and confirm reasons are supported.
 5. Confirm summary consistency:
    - Check `outputs/summary.json` includes or links to Article 09 outcomes where applicable.
 
-TODO: Replace the placeholder artifact name/path once the evidence contract is finalized.
+TODO: Add `outputs/articles/art_09.json` once controls + spine mapping are finalized.

@@ -9,6 +9,7 @@
 6. [50_method_notes_and_decisions.md](50_method_notes_and_decisions.md)
 7. [60_risk_register.md](60_risk_register.md)
 8. [70_change_control.md](70_change_control.md)
+9. [regulation_sources.md](regulation_sources.md)
 
 ## Document Map
 
