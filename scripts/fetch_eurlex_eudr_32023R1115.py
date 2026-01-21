@@ -35,6 +35,13 @@ LAST_UPDATE_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
+LSU_UPDATED_ON_RE = re.compile(
+    r"\b(updated\s+on|last\s+update)\b[^0-9]{0,40}(?P<date>\d{1,2}\.\d{1,2}\.\d{4})",
+    flags=re.IGNORECASE,
+)
+
+DATE_DIR_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
 
 @dataclass(frozen=True)
 class FetchResult:
@@ -73,6 +80,176 @@ def extract_summary_last_update(html_text: str) -> str | None:
     if not match:
         return None
     return match.group("date")
+
+
+def extract_lsu_updated_on(html_text: str) -> str | None:
+    match = LSU_UPDATED_ON_RE.search(html_text)
+    if not match:
+        return None
+    return match.group("date")
+
+
+def _iter_date_run_dirs(out_base: Path) -> list[str]:
+    if not out_base.exists():
+        return []
+    dates: list[str] = []
+    for child in out_base.iterdir():
+        if child.is_dir() and DATE_DIR_RE.match(child.name):
+            dates.append(child.name)
+    return sorted(dates)
+
+
+def _latest_prior_run_date(out_base: Path, run_date: str) -> str | None:
+    dates = _iter_date_run_dirs(out_base)
+    priors = [d for d in dates if d < run_date]
+    if not priors:
+        return None
+    return priors[-1]
+
+
+def _read_json(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def _write_json(path: Path, data: dict[str, Any]) -> None:
+    path.write_text(
+        json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def _headers_fingerprint(result: FetchResult) -> dict[str, Any]:
+    return {
+        "etag": result.etag,
+        "last_modified": result.last_modified,
+        "content_length": result.content_length,
+        "content_type": result.content_type,
+        "http_status": result.http_status,
+        "error": result.error,
+    }
+
+
+def _best_fallback_fingerprint(results: list[FetchResult]) -> dict[str, Any]:
+    by_name = {r.name: r for r in results}
+    pdf = by_name.get("pdf")
+    html = by_name.get("html")
+    eli = by_name.get("eli_oj")
+
+    return {
+        "pdf": None if pdf is None else {"sha256": pdf.sha256, **_headers_fingerprint(pdf)},
+        "html": None if html is None else {"sha256": html.sha256, **_headers_fingerprint(html)},
+        "eli_oj": None if eli is None else {"sha256": eli.sha256, **_headers_fingerprint(eli)},
+    }
+
+
+def _entrypoint_status(
+    *,
+    entrypoint_url: str,
+    lsu_result: FetchResult,
+    run_dir: Path,
+    results: list[FetchResult],
+) -> dict[str, Any]:
+    reachable = lsu_result.error is None and lsu_result.http_status == 200
+
+    evidence: dict[str, Any] = {}
+    if reachable:
+        stored = run_dir / "lsu_entry.html"
+        lsu_sha256 = sha256_file(stored) if stored.exists() else None
+        lsu_updated_on: str | None = None
+        if stored.exists():
+            lsu_updated_on = extract_lsu_updated_on(
+                stored.read_text(encoding="utf-8", errors="replace")
+            )
+        evidence = {
+            "lsu_entry_sha256": lsu_sha256,
+            "lsu_updated_on": lsu_updated_on,
+        }
+    else:
+        evidence = {
+            "fallback": _best_fallback_fingerprint(results),
+        }
+
+    return {
+        "entrypoint_url": entrypoint_url,
+        "attempted": True,
+        "http_status": lsu_result.http_status,
+        "reachable": reachable,
+        "error": lsu_result.error,
+        "evidence": evidence,
+    }
+
+
+def _compute_needs_update(
+    *,
+    out_base: Path,
+    run_date: str,
+    entrypoint_status: dict[str, Any],
+    extracted_fields: dict[str, Any],
+) -> tuple[bool, list[str], str | None]:
+    prev_date = _latest_prior_run_date(out_base, run_date)
+    if prev_date is None:
+        return True, ["no_previous_run"], None
+
+    prev_dir = out_base / prev_date
+    prev_entry = _read_json(prev_dir / "entrypoint_status.json")
+    prev_meta = _read_json(prev_dir / "metadata.json")
+
+    reasons: list[str] = []
+
+    cur_reachable = bool(entrypoint_status.get("reachable"))
+    prev_reachable = bool(prev_entry.get("reachable")) if isinstance(prev_entry, dict) else False
+
+    if cur_reachable and isinstance(prev_entry, dict) and prev_reachable:
+        cur_e = entrypoint_status.get("evidence") or {}
+        prev_e = prev_entry.get("evidence") or {}
+        if cur_e.get("lsu_entry_sha256") != prev_e.get("lsu_entry_sha256"):
+            reasons.append("lsu_sha256_changed")
+        if cur_e.get("lsu_updated_on") != prev_e.get("lsu_updated_on"):
+            reasons.append("lsu_updated_on_changed")
+    else:
+        cur_fb = (entrypoint_status.get("evidence") or {}).get("fallback")
+        prev_fb = (
+            (prev_entry.get("evidence") or {}).get("fallback")
+            if isinstance(prev_entry, dict)
+            else None
+        )
+
+        def _get(dct: Any, *path: str) -> Any:
+            cur: Any = dct
+            for key in path:
+                if not isinstance(cur, dict):
+                    return None
+                cur = cur.get(key)
+            return cur
+
+        if _get(cur_fb, "pdf", "sha256") != _get(prev_fb, "pdf", "sha256"):
+            reasons.append("lsu_unreachable_but_pdf_sha256_changed")
+        if _get(cur_fb, "html", "sha256") != _get(prev_fb, "html", "sha256"):
+            reasons.append("lsu_unreachable_but_html_sha256_changed")
+        if _get(cur_fb, "eli_oj", "sha256") != _get(prev_fb, "eli_oj", "sha256"):
+            reasons.append("lsu_unreachable_but_eli_oj_sha256_changed")
+
+        if _get(cur_fb, "pdf", "etag") != _get(prev_fb, "pdf", "etag"):
+            reasons.append("lsu_unreachable_but_pdf_etag_changed")
+        if _get(cur_fb, "pdf", "last_modified") != _get(prev_fb, "pdf", "last_modified"):
+            reasons.append("lsu_unreachable_but_pdf_last_modified_changed")
+
+    prev_summary_last_update = None
+    if isinstance(prev_meta, dict):
+        prev_summary_last_update = (prev_meta.get("extracted_fields") or {}).get(
+            "summary_last_update"
+        )
+    if extracted_fields.get("summary_last_update") != prev_summary_last_update:
+        reasons.append("summary_last_update_changed")
+
+    needs_update = len(reasons) > 0
+    return needs_update, sorted(set(reasons)), prev_date
 
 
 def _fetch(url: str) -> tuple[int | None, dict[str, str], bytes | None, str | None]:
@@ -196,14 +373,13 @@ def run_mirror(*, out_base: Path, run_date: str, repo_root: Path) -> Path:
             expected_content_type="text/html",
         )
     )
-    results.append(
-        _result_from_fetch(
-            name="lsu_entry",
-            url=URL_LSU_ENTRY,
-            out_path=run_dir / "lsu.html",
-            expected_content_type="text/html",
-        )
+    lsu_result = _result_from_fetch(
+        name="lsu_entry",
+        url=URL_LSU_ENTRY,
+        out_path=run_dir / "lsu_entry.html",
+        expected_content_type="text/html",
     )
+    results.append(lsu_result)
     results.append(
         _result_from_fetch(
             name="pdf",
@@ -270,10 +446,27 @@ def run_mirror(*, out_base: Path, run_date: str, repo_root: Path) -> Path:
 
     status = "complete" if all(r.error is None for r in results) else "partial"
 
+    extracted_fields: dict[str, Any] = {"summary_last_update": summary_last_update}
+    entrypoint_status = _entrypoint_status(
+        entrypoint_url=URL_LSU_ENTRY,
+        lsu_result=lsu_result,
+        run_dir=run_dir,
+        results=results,
+    )
+    _write_json(run_dir / "entrypoint_status.json", entrypoint_status)
+
+    needs_update, reasons, prev_date = _compute_needs_update(
+        out_base=out_base,
+        run_date=run_date,
+        entrypoint_status=entrypoint_status,
+        extracted_fields=extracted_fields,
+    )
+
     metadata: dict[str, Any] = {
         "celex": CELEX,
         "canonical_name": CANONICAL_NAME,
         "status": status,
+        "needs_update": needs_update,
         "sources": [
             {
                 "name": r.name,
@@ -288,8 +481,16 @@ def run_mirror(*, out_base: Path, run_date: str, repo_root: Path) -> Path:
             }
             for r in results
         ],
-        "extracted_fields": {"summary_last_update": summary_last_update},
+        "extracted_fields": extracted_fields,
     }
+
+    if needs_update:
+        trigger = {
+            "reason": reasons,
+            "previous_run": prev_date,
+            "current_run": run_date,
+        }
+        _write_json(run_dir / "digital_twin_trigger.json", trigger)
 
     existing = _load_existing_metadata(run_dir)
 
@@ -313,11 +514,7 @@ def run_mirror(*, out_base: Path, run_date: str, repo_root: Path) -> Path:
 
     metadata["run"] = run_info
 
-    (run_dir / "metadata.json").write_text(
-        json.dumps(metadata, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    _write_json(run_dir / "metadata.json", metadata)
 
     _write_fetch_log(run_dir, results)
 

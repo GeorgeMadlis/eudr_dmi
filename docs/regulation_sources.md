@@ -35,6 +35,8 @@ This repository includes a deterministic “EUR-Lex mirror” for CELEX:32023R11
 
 Note: https://eur-lex.europa.eu/legal-content/EN/LSU/?uri=CELEX:32023R1115 is treated as an entry point to the EUDR “digital twin”. Re-run the mirror whenever this entry point (or the underlying regulation artefacts) change.
 
+WAF note: LSU can be blocked in headless/automated environments. The mirror records an explicit entrypoint watch file so we still get a deterministic change signal even when LSU is unreachable.
+
 Command:
 
 ```sh
@@ -51,10 +53,16 @@ What to check:
 	- `metadata.json` (machine-readable record of per-source status, headers when available, and hashes)
 	- `manifest.sha256` (sorted; covers stored artefacts + metadata)
 	- `summary.html`
-	- `lsu.html` (EUDR digital twin entry point)
+	- `lsu_entry.html` (EUDR digital twin entry point; when reachable)
 	- `regulation.pdf`
 	- Optional when accessible: `regulation.html`, `eli_oj.html`
 	- Optional on failures: `fetch.log`
+- Digital twin watch outputs:
+	- `entrypoint_status.json` records LSU reachability and evidence.
+		- If LSU is reachable (`http_status=200`), evidence includes `lsu_entry_sha256` (hash of `lsu_entry.html`) and an extracted `lsu_updated_on` date if present.
+		- If LSU is not reachable (e.g. WAF), evidence includes a fallback fingerprint derived from the most stable available endpoints (PDF/HTML/ELI hashes and headers when available).
+	- `metadata.json` includes a top-level `needs_update` boolean computed by comparing this run’s entrypoint watch fingerprints to the latest prior run folder under the same `--out` base.
+	- When `needs_update=true`, the mirror writes `digital_twin_trigger.json`. Downstream “digital twin” jobs should watch for this file.
 - If EUR-Lex blocks requests (HTTP 202 / WAF challenge), the run is recorded as `status=partial` and the error is captured in metadata (and `fetch.log` when present).
 
 Expected SHA256SUMS paths (server):
