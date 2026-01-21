@@ -34,6 +34,14 @@ These artifacts are expected to exist inside a compliant evidence bundle (see [d
 ## How to run (scaffold)
 This scaffold creates a minimal, deterministic evidence bundle skeleton. Integration to `geospatial_dmi` entrypoints is TODO, but the evidence contract (bundle layout + deterministic artifacts + hashing) is already enforced.
 
+## Regulatory references
+Authoritative text is stored as hashed EUR-Lex artefacts under the server audit root (not in this repo).
+
+- Human registry: [docs/regulation_sources.md](../../regulation_sources.md)
+- Machine registry: [docs/regulation_sources.json](../../regulation_sources.json)
+- Browser launcher: [docs/regulation_links.html](../../regulation_links.html)
+- Non-verbatim summaries: [docs/articles/eudr_article_summaries.md](../eudr_article_summaries.md)
+
 Evidence root policy:
 - Default repo-local: `audit/evidence/`
 - Override (server): `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`

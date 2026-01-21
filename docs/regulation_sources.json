@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "id": "eudr_2023_1115_oj_eng_html",
+      "title": "EUDR 2023/1115 — OJ (ELI) HTML (EN)",
+      "url": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng",
+      "server_local_path": "/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/eudr_2023_1115_oj_eng.html",
+      "sha256": null,
+      "content_type_expected": "text/html",
+      "notes": "Authoritative snapshot. Interactive access may be WAF/login gated; acquisition is operator-managed."
+    },
+    {
+      "id": "eudr_2023_1115_consolidated_2024_12_26_html",
+      "title": "EUDR 2023/1115 — Consolidated HTML (2024-12-26) (EN)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02023R1115-20241226",
+      "server_local_path": "/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/eudr_2023_1115_consolidated_2024-12-26_en.html",
+      "sha256": null,
+      "content_type_expected": "text/html",
+      "notes": "Consolidated version snapshot. Store the downloaded HTML as a file and hash it."
+    },
+    {
+      "id": "eudr_2023_1115_celex_32023R1115_pdf_endpoint",
+      "title": "EUDR 2023/1115 — CELEX PDF endpoint (32023R1115) (EN)",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R1115",
+      "server_local_path": "/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/eudr_2023_1115_celex_32023R1115_en.pdf",
+      "sha256": null,
+      "content_type_expected": "application/pdf",
+      "notes": "Endpoint may return PDF or an HTML challenge page depending on headers/WAF; hash whatever is stored after verification."
+    }
+  ]
+}
