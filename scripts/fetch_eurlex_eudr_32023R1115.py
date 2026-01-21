@@ -6,7 +6,7 @@ import json
 import re
 import subprocess
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -57,8 +57,10 @@ class FetchResult:
     error: str | None
 
 
-def _local_today_yyyy_mm_dd() -> str:
-    return datetime.now().astimezone().date().isoformat()
+def resolve_run_date(arg_date: str | None) -> str:
+    if arg_date:
+        return arg_date  # must already be YYYY-MM-DD
+    return date.today().isoformat()
 
 
 def _git_sha(repo_root: Path) -> str:
@@ -545,8 +547,12 @@ def _build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
 
-    run_date = args.date or _local_today_yyyy_mm_dd()
+    run_date = resolve_run_date(args.date)
     out_base = Path(args.out)
+
+    run_dir = out_base / run_date
+    assert DATE_DIR_RE.match(run_dir.name), f"run_dir name must be YYYY-MM-DD, got: {run_dir.name}"
+    run_dir.mkdir(parents=True, exist_ok=True)
 
     repo_root = Path(__file__).resolve().parents[1]
     run_dir = run_mirror(out_base=out_base, run_date=run_date, repo_root=repo_root)

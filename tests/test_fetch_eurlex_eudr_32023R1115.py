@@ -1,9 +1,11 @@
 import hashlib
 import importlib.util
 import json
+import re
 import sys
 import tempfile
 import unittest
+from datetime import date
 from pathlib import Path
 from unittest.mock import patch
 
@@ -24,6 +26,7 @@ def _load_script_module():
 _SCRIPT = _load_script_module()
 extract_summary_last_update = _SCRIPT.extract_summary_last_update
 run_mirror = _SCRIPT.run_mirror
+main = _SCRIPT.main
 
 
 class _FakeResponse:
@@ -371,6 +374,97 @@ class TestEurlexMirror(unittest.TestCase):
                 metadata = json.loads((run_dir / "metadata.json").read_text(encoding="utf-8"))
                 self.assertFalse(metadata["needs_update"])
                 self.assertFalse((run_dir / "digital_twin_trigger.json").exists())
+
+    def test_cli_omitted_date_creates_one_dated_dir(self):
+        with tempfile.TemporaryDirectory() as td:
+            out_base = Path(td)
+
+            def fake_urlopen(req, timeout=20):  # noqa: ARG001
+                url = req.full_url
+                if "summary" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>Last update 22.5.2025</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "legal-content/EN/LSU/" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>EUDR digital twin entry</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "TXT/PDF" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"%PDF-1.4\n%mock\n",
+                        headers={"content-type": "application/pdf"},
+                    )
+                return _FakeResponse(status=404, body=b"", headers={})
+
+            class _FixedDate:
+                @staticmethod
+                def today() -> date:
+                    return date(2026, 1, 21)
+
+            with (
+                patch.object(_SCRIPT, "urlopen", new=fake_urlopen),
+                patch.object(_SCRIPT, "date", new=_FixedDate),
+            ):
+                rc = main(["--out", str(out_base)])
+                self.assertEqual(rc, 0)
+
+            dated = [
+                p
+                for p in out_base.iterdir()
+                if p.is_dir() and re.match(r"^\d{4}-\d{2}-\d{2}$", p.name)
+            ]
+            self.assertEqual(len(dated), 1)
+            self.assertEqual(dated[0].name, "2026-01-21")
+
+            run_dir = dated[0]
+            self.assertTrue((run_dir / "metadata.json").exists())
+            self.assertTrue((run_dir / "entrypoint_status.json").exists())
+
+            self.assertFalse((out_base / "metadata.json").exists())
+            self.assertFalse((out_base / "entrypoint_status.json").exists())
+
+    def test_cli_explicit_date_writes_under_that_folder(self):
+        with tempfile.TemporaryDirectory() as td:
+            out_base = Path(td)
+
+            def fake_urlopen(req, timeout=20):  # noqa: ARG001
+                url = req.full_url
+                if "summary" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>Last update 22.5.2025</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "legal-content/EN/LSU/" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>EUDR digital twin entry</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
+                if "TXT/PDF" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"%PDF-1.4\n%mock\n",
+                        headers={"content-type": "application/pdf"},
+                    )
+                return _FakeResponse(status=404, body=b"", headers={})
+
+            with patch.object(_SCRIPT, "urlopen", new=fake_urlopen):
+                rc = main(["--out", str(out_base), "--date", "2026-01-21"])
+                self.assertEqual(rc, 0)
+
+            run_dir = out_base / "2026-01-21"
+            self.assertTrue(run_dir.is_dir())
+            self.assertTrue((run_dir / "metadata.json").exists())
+            self.assertTrue((run_dir / "entrypoint_status.json").exists())
+
+            self.assertFalse((out_base / "metadata.json").exists())
+            self.assertFalse((out_base / "entrypoint_status.json").exists())
 
 
 if __name__ == "__main__":
