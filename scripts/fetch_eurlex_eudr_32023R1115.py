@@ -21,6 +21,7 @@ URL_SUMMARY = (
     "https://eur-lex.europa.eu/EN/legal-content/summary/"
     "fighting-deforestation-and-forest-degradation.html"
 )
+URL_LSU_ENTRY = "https://eur-lex.europa.eu/legal-content/EN/LSU/?uri=CELEX:32023R1115"
 URL_PDF = "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R1115"
 URL_HTML = "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
 URL_ELI_OJ = "https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng"
@@ -192,6 +193,14 @@ def run_mirror(*, out_base: Path, run_date: str, repo_root: Path) -> Path:
             name="summary",
             url=URL_SUMMARY,
             out_path=run_dir / "summary.html",
+            expected_content_type="text/html",
+        )
+    )
+    results.append(
+        _result_from_fetch(
+            name="lsu_entry",
+            url=URL_LSU_ENTRY,
+            out_path=run_dir / "lsu.html",
             expected_content_type="text/html",
         )
     )

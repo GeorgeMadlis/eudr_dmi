@@ -63,6 +63,12 @@ class TestEurlexMirror(unittest.TestCase):
                         body=b"<html><p>Last update 22.5.2025</p></html>",
                         headers={"content-type": "text/html"},
                     )
+                if "legal-content/EN/LSU/" in url:
+                    return _FakeResponse(
+                        status=200,
+                        body=b"<html><p>EUDR digital twin entry</p></html>",
+                        headers={"content-type": "text/html"},
+                    )
                 if "TXT/PDF" in url:
                     return _FakeResponse(
                         status=200,
@@ -104,6 +110,12 @@ class TestEurlexMirror(unittest.TestCase):
                 return _FakeResponse(
                     status=200,
                     body=b"<html><p>Last update 22.5.2025</p></html>",
+                    headers={"content-type": "text/html"},
+                )
+            if "legal-content/EN/LSU/" in url:
+                return _FakeResponse(
+                    status=200,
+                    body=b"<html><p>EUDR digital twin entry</p></html>",
                     headers={"content-type": "text/html"},
                 )
             if "TXT/PDF" in url:
