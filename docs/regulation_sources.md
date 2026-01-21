@@ -30,6 +30,25 @@ Optional: if your browser session is required and you can export cookies, see [d
 python tools/regulation/acquire_and_hash.py --fetch --cookie-jar /Users/server/secrets/eudr_dmi/eurlex_cookies.txt
 ```
 
+## How to mirror EUR-Lex sources (deterministic, audit-grade)
+This repository includes a deterministic “EUR-Lex mirror” for CELEX:32023R1115 that writes a run folder with hashes and metadata.
+
+Command:
+
+```sh
+python scripts/fetch_eurlex_eudr_32023R1115.py \
+	--out audit/eudr_dmi/regulation/eudr_2023_1115 \
+	--date 2026-01-21
+```
+
+Output folder:
+- `audit/eudr_dmi/regulation/eudr_2023_1115/<YYYY-MM-DD>/`
+
+What to check:
+- `metadata.json` includes per-source status, headers (when available), and hashes.
+- `manifest.sha256` is sorted and covers stored artefacts.
+- If EUR-Lex blocks requests (HTTP 202 / WAF challenge), the run is recorded as `status=partial` and the error is captured in metadata (and `fetch.log` when present).
+
 Expected SHA256SUMS paths (server):
 - `/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/SHA256SUMS.txt`
 - `/Users/server/audit/eudr_dmi/regulation/guidance/SHA256SUMS.txt` (if guidance PDFs are added)
