@@ -45,8 +45,9 @@ Outcomes are expressed as one of: PASS, FAIL, UNDETERMINED.
 - Confirm any UNDETERMINED outcome includes explicit reasons and references to impacted controls.
 
 ### Where to Find It
-- Outcome summary: `TODO_EVIDENCE_BUNDLE_RELATIVE_PATH/outputs/summary.json`
-- Manifest and hashes: `TODO_EVIDENCE_BUNDLE_RELATIVE_PATH/manifest.json`, `TODO_EVIDENCE_BUNDLE_RELATIVE_PATH/hashes.sha256`
+- Bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/` (default `<root>`: `audit/evidence/`; override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`)
+- Outcome summary: `<bundle_root>/outputs/summary.json`
+- Manifest and hashes: `<bundle_root>/manifest.json`, `<bundle_root>/hashes.sha256`
 - Spine mapping: [10_policy_to_evidence_spine.md](10_policy_to_evidence_spine.md)
 
 ## Assumptions and Limitations

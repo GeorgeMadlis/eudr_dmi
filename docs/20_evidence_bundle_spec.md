@@ -3,10 +3,21 @@
 ## Purpose
 Defines the canonical evidence bundle layout, required files, field-level schemas, hashing rules, determinism expectations, and auditor verification steps.
 
+## Evidence Root Policy
+Evidence bundles are stored under a single evidence root, with one date folder per run date and one bundle folder per bundle id:
+
+- Default evidence root (repo-local): `audit/evidence/`
+- Override (server evidence root): `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
+- Bundle layout: `<root>/<YYYY-MM-DD>/<bundle_id>/`
+
+Notes:
+- `<root>` resolves to `$EUDR_DMI_EVIDENCE_ROOT` if set; otherwise `audit/evidence/`.
+- In this document, `<bundle_root>` refers to the concrete bundle directory: `<root>/<YYYY-MM-DD>/<bundle_id>/`.
+
 ## Canonical Bundle Directory Layout
 
 ```
-<bundle_root>/
+<root>/<YYYY-MM-DD>/<bundle_id>/
   manifest.json
   hashes.sha256
   inputs/

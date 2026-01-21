@@ -1,5 +1,14 @@
 # Runbook
 
+## Evidence Root Policy
+- Default evidence root (repo-local): `audit/evidence/`
+- Override (server evidence root): `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
+- Bundle layout: `<root>/<YYYY-MM-DD>/<bundle_id>/`
+
+Notes:
+- `<root>` resolves to `$EUDR_DMI_EVIDENCE_ROOT` if set; otherwise `audit/evidence/`.
+- `<bundle_root>` refers to a single bundle directory: `<root>/<YYYY-MM-DD>/<bundle_id>/`.
+
 ## Preflight Checklist
 
 | Item | What to check | Where to find it | Acceptance criteria |
@@ -7,15 +16,16 @@
 | Operator inputs available | Geometry, date window, commodity context, operator ref. | Operator ticket / request record (TODO) | All required inputs complete and recorded. |
 | Upstream access | Ability to reach `geospatial_dmi` canonical entrypoints. | TODO_LINK_OR_PATH_TO_GEODMI_ENTRYPOINTS | Access confirmed; credentials and network prerequisites satisfied. |
 | Dependency pinning | Dataset/service versions pinned as required. | `TODO_CONFIG_FILE_OR_ENV_VARS` | Versions/IDs recorded; reruns are feasible. |
-| Workspace cleanliness | Output location writable; no conflicting bundle id. | `TODO_RELATIVE_EVIDENCE_PATH` | Target path exists and is empty or uses a new bundle root. |
+| Workspace cleanliness | Evidence root writable; no conflicting bundle id. | `audit/evidence/` (or `$EUDR_DMI_EVIDENCE_ROOT`) | Evidence root exists and is writable; selected `<bundle_root>` is new/empty. |
 
 ## Execution Steps (Placeholders)
 1. Prepare environment
    - `TODO_COMMAND_TO_CREATE_ENV`
    - `TODO_COMMAND_TO_INSTALL_DEPENDENCIES`
 2. Provide inputs
-   - Place geometry at `TODO_BUNDLE_ROOT/inputs/geometry.<ext>`
-   - Create `TODO_BUNDLE_ROOT/inputs/parameters.json`
+   - Choose a `<bundle_root>` at `<root>/<YYYY-MM-DD>/<bundle_id>/`
+   - Place geometry at `<bundle_root>/inputs/geometry.<ext>`
+   - Create `<bundle_root>/inputs/parameters.json`
 3. Generate evidence bundle
    - `TODO_COMMAND_TO_GENERATE_BUNDLE`
 4. Generate/update manifest and hashes
@@ -26,11 +36,11 @@
 
 | Output | Location | Acceptance criteria |
 |---|---|---|
-| Evidence bundle directory | `TODO_RELATIVE_EVIDENCE_BUNDLE_PATH/<bundle_id>/` | Bundle contains all required files per [20_evidence_bundle_spec.md](20_evidence_bundle_spec.md). |
-| Summary outcome | `outputs/summary.json` | `status` present and valid; evidence references resolve. |
-| Provenance record | `provenance/provenance.json` | Contains required provenance fields for each dependency used. |
-| Manifest + hashes | `manifest.json`, `hashes.sha256` | Parseable manifest; all hashes match on recomputation. |
-| Run log | `logs/run.log` | Contains run start/end, operator ref, and any warnings/errors. |
+| Evidence bundle directory | `<root>/<YYYY-MM-DD>/<bundle_id>/` | Bundle contains all required files per [20_evidence_bundle_spec.md](20_evidence_bundle_spec.md). |
+| Summary outcome | `<bundle_root>/outputs/summary.json` | `status` present and valid; evidence references resolve. |
+| Provenance record | `<bundle_root>/provenance/provenance.json` | Contains required provenance fields for each dependency used. |
+| Manifest + hashes | `<bundle_root>/manifest.json`, `<bundle_root>/hashes.sha256` | Parseable manifest; all hashes match on recomputation. |
+| Run log | `<bundle_root>/logs/run.log` | Contains run start/end, operator ref, and any warnings/errors. |
 
 ## Verification Steps
 

@@ -44,7 +44,9 @@ Commands are intentionally placeholders until the generator interface is finaliz
    - `TODO_COMMAND_WRITE_HASHES`
 
 ## How to Inspect Evidence (Step-by-step)
-1. Locate the evidence bundle root: `TODO_RELATIVE_PATH_TO_EVIDENCE_BUNDLES/<bundle_id>/`.
+1. Locate the evidence bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/`.
+   - Default `<root>`: `audit/evidence/`
+   - Override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
 2. Verify integrity:
    - Recompute SHA-256 and confirm manifest completeness.
 3. Inspect Article 10 results:

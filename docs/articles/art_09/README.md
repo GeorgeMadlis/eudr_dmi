@@ -44,7 +44,9 @@ Commands are intentionally placeholders until the generator interface is finaliz
    - `TODO_COMMAND_WRITE_HASHES`
 
 ## How to Inspect Evidence (Step-by-step)
-1. Locate the evidence bundle root: `TODO_RELATIVE_PATH_TO_EVIDENCE_BUNDLES/<bundle_id>/`.
+1. Locate the evidence bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/`.
+   - Default `<root>`: `audit/evidence/`
+   - Override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
 2. Verify bundle integrity:
    - Recompute SHA-256 for each file referenced by `hashes.sha256` (see [docs/30_runbook.md](../../30_runbook.md)).
    - Confirm `manifest.json` lists `outputs/articles/art_09.json` (or the finalized equivalent).

@@ -10,7 +10,9 @@ Provides a step-by-step checklist for inspecting an evidence bundle produced und
 ## Checklist
 
 ### 1) Identify the Bundle Under Review
-- Bundle root: `TODO_RELATIVE_PATH_TO_EVIDENCE_BUNDLES/<bundle_id>/`
+- Bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/`
+   - Default `<root>`: `audit/evidence/`
+   - Override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
 - Record: bundle id, operator ref, run date, and method version.
 
 Acceptance criteria:

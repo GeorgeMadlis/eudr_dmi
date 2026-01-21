@@ -39,7 +39,9 @@ Provide the exact commands to generate the declared evidence artifacts.
 ## 4) How to inspect (steps)
 Provide an inspector-friendly sequence of checks.
 
-1. Locate bundle root: `TODO_RELATIVE_PATH_TO_EVIDENCE_BUNDLES/<bundle_id>/`
+1. Locate bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/`
+	- Default `<root>`: `audit/evidence/`
+	- Override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`
 2. Verify integrity:
 	- Validate `hashes.sha256` against on-disk files
 	- Confirm `manifest.json` completeness
