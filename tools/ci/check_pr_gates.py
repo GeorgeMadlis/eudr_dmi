@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -56,6 +57,11 @@ def main() -> int:
 
     # Non-PR runs: stdin empty => only existence checks.
     if not changed_files:
+        if os.environ.get("GITHUB_EVENT_NAME") == "pull_request":
+            return _fail(
+                "PR gate checks failed.",
+                ["Empty PR diff (no changed files) is not allowed."],
+            )
         return _pass("Canonical files present (non-PR run).")
 
     failures: list[str] = []
@@ -64,8 +70,14 @@ def main() -> int:
         prefix = _normalize_path(prefix).rstrip("/") + "/"
         return any(p.startswith(prefix) for p in changed_files)
 
+    is_governance_only = all(p.startswith(".github/") for p in changed_files)
+    if is_governance_only:
+        print(
+            "Governance-only change detected (.github/*). Skipping content-change requirement."
+        )
+
     # Ensure PR touches at least one of these content roots.
-    if not any(
+    if (not is_governance_only) and not any(
         p.startswith(("docs/", "src/", "tests/", "tools/")) for p in changed_files
     ):
         failures.append(
