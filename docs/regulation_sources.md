@@ -68,3 +68,16 @@ What to check:
 Expected SHA256SUMS paths (server):
 - `/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/SHA256SUMS.txt`
 - `/Users/server/audit/eudr_dmi/regulation/guidance/SHA256SUMS.txt` (if guidance PDFs are added)
+
+## Scheduled watcher (daily)
+For downstream automation (cron/launchd/GitHub Actions), use the watcher wrapper which runs the mirror and exits with a meaningful code:
+
+```sh
+python scripts/watch_eurlex_eudr_32023R1115.py \
+	--out /Users/server/audit/eudr_dmi/regulation/eudr_2023_1115
+```
+
+Exit codes:
+- `0` = no change (`needs_update=false`)
+- `2` = change detected / update needed (`needs_update=true` with a strong fingerprint change)
+- `3` = partial / upstream blocked / uncertain (e.g. LSU WAF challenge without a confident fingerprint diff)
