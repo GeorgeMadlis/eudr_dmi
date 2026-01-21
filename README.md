@@ -26,3 +26,4 @@ This repository maintains the inspection-oriented documentation and evidence bun
 ## Non-goals
 - This project consumes `geospatial_dmi`.
 - No platform architecture duplication: do not copy, restate, or re-document `geospatial_dmi` architecture in this repository; only reference canonical entrypoints (TODO: add links/paths once confirmed).
+- 
