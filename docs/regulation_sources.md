@@ -81,3 +81,6 @@ Exit codes:
 - `0` = no change (`needs_update=false`)
 - `2` = change detected / update needed (`needs_update=true` with a strong fingerprint change)
 - `3` = partial / upstream blocked / uncertain (e.g. LSU WAF challenge without a confident fingerprint diff)
+
+## Manual verification checklist
+See [docs/regulation_mirror_manual_checklist.md](regulation_mirror_manual_checklist.md).
