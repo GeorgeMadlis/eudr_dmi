@@ -1,7 +1,7 @@
 # CODEOWNERS
 # Placeholder owners for audit-ready governance. Replace @repo-owner with real GitHub handles.
 
-docs/evidence_governance/*            @repo-owner
-docs/10_policy_to_evidence_spine.md   @repo-owner
-docs/articles/**                      @repo-owner
-tools/ci/**                           @repo-owner
+docs/evidence_governance/*            
+docs/10_policy_to_evidence_spine.md   @GeorgeMadlis
+docs/articles/**                      @GeorgeMadlis
+tools/ci/**                           @GeorgeMadlis
