@@ -242,7 +242,7 @@ class TestEurlexMirror(unittest.TestCase):
                 )
                 self.assertEqual(trigger["previous_run"], "2026-01-20")
                 self.assertEqual(trigger["current_run"], "2026-01-21")
-                self.assertIn("lsu_sha256_changed", trigger["reason"])
+                self.assertIn("lsu_hash_changed", trigger["reason"])
 
     def test_needs_update_lsu_unreachable_but_pdf_changed(self):
         with tempfile.TemporaryDirectory() as td:
@@ -316,7 +316,8 @@ class TestEurlexMirror(unittest.TestCase):
                 trigger = json.loads(
                     (run_dir / "digital_twin_trigger.json").read_text(encoding="utf-8")
                 )
-                self.assertIn("lsu_unreachable_but_pdf_sha256_changed", trigger["reason"])
+                self.assertIn("lsu_unreachable", trigger["reason"])
+                self.assertIn("pdf_sha256_changed", trigger["reason"])
 
     def test_needs_update_false_when_unchanged(self):
         with tempfile.TemporaryDirectory() as td:

@@ -43,6 +43,20 @@ LSU_UPDATED_ON_RE = re.compile(
 DATE_DIR_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
+def _order_reasons(reasons: list[str]) -> list[str]:
+    priority = [
+        "lsu_hash_changed",
+        "summary_last_update_changed",
+        "pdf_sha256_changed",
+        "html_sha256_changed",
+        "eli_oj_sha256_changed",
+        "lsu_unreachable",
+    ]
+    rank = {name: i for i, name in enumerate(priority)}
+    unique = sorted(set(reasons))
+    return sorted(unique, key=lambda r: (rank.get(r, 10_000), r))
+
+
 @dataclass(frozen=True)
 class FetchResult:
     name: str
@@ -215,10 +229,12 @@ def _compute_needs_update(
         cur_e = entrypoint_status.get("evidence") or {}
         prev_e = prev_entry.get("evidence") or {}
         if cur_e.get("lsu_entry_sha256") != prev_e.get("lsu_entry_sha256"):
-            reasons.append("lsu_sha256_changed")
+            reasons.append("lsu_hash_changed")
         if cur_e.get("lsu_updated_on") != prev_e.get("lsu_updated_on"):
-            reasons.append("lsu_updated_on_changed")
+            reasons.append("lsu_hash_changed")
     else:
+        if not cur_reachable:
+            reasons.append("lsu_unreachable")
         cur_fb = (entrypoint_status.get("evidence") or {}).get("fallback")
         prev_fb = (
             (prev_entry.get("evidence") or {}).get("fallback")
@@ -235,11 +251,11 @@ def _compute_needs_update(
             return cur
 
         if _get(cur_fb, "pdf", "sha256") != _get(prev_fb, "pdf", "sha256"):
-            reasons.append("lsu_unreachable_but_pdf_sha256_changed")
+            reasons.append("pdf_sha256_changed")
         if _get(cur_fb, "html", "sha256") != _get(prev_fb, "html", "sha256"):
-            reasons.append("lsu_unreachable_but_html_sha256_changed")
+            reasons.append("html_sha256_changed")
         if _get(cur_fb, "eli_oj", "sha256") != _get(prev_fb, "eli_oj", "sha256"):
-            reasons.append("lsu_unreachable_but_eli_oj_sha256_changed")
+            reasons.append("eli_oj_sha256_changed")
 
         if _get(cur_fb, "pdf", "etag") != _get(prev_fb, "pdf", "etag"):
             reasons.append("lsu_unreachable_but_pdf_etag_changed")
@@ -261,7 +277,7 @@ def _compute_needs_update(
                 reasons.append(item)
 
     needs_update = len(reasons) > 0
-    return needs_update, sorted(set(reasons)), prev_date
+    return needs_update, _order_reasons(reasons), prev_date
 
 
 def _fetch(url: str) -> tuple[int | None, dict[str, str], bytes | None, str | None]:
