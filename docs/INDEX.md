@@ -14,6 +14,7 @@
 11. [regulation_links.html](regulation_links.html)
 12. [articles/eudr_article_summaries.md](articles/eudr_article_summaries.md)
 13. [secrets_handling.md](secrets_handling.md)
+14. [architecture/decision_records/ADR-0001-project-scope.md](architecture/decision_records/ADR-0001-project-scope.md)
 
 ## Document Map
 

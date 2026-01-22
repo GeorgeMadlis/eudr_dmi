@@ -12,7 +12,7 @@ Use one of the following prefixes in the PR title:
 - TODO
 
 **Boundary statement (required):**
-- This project consumes `geospatial_dmi`.
+- This project is informed by `geospatial_dmi` and may adopt selected components from it into `eudr_dmi` with explicit provenance (see ADR-0001).
 - This PR MUST NOT copy, restate, or re-document `geospatial_dmi` architecture or code.
 
 ## 2) Evidence artifacts added/changed (exact paths)

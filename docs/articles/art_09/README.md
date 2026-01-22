@@ -4,7 +4,7 @@
 This document defines the inspection-oriented evidence expectations for obligations mapped to Article 09 (placeholder reference). It specifies what an inspector should verify and where the corresponding evidence should be found in the evidence bundle.
 
 Boundary:
-- This project consumes `geospatial_dmi` as the upstream platform for data/services.
+- This project is informed by `geospatial_dmi` and may adopt selected components from it into `eudr_dmi` with explicit provenance.
 - This document does not describe, restate, or duplicate `geospatial_dmi` architecture.
 - Evidence requirements here are project-level conventions and MUST be traceable to the spine.
 

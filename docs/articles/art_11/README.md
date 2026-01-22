@@ -4,7 +4,7 @@
 This document defines the inspection-oriented evidence expectations for obligations mapped to Article 11 (placeholder reference). It focuses on what to check, where to find it in the evidence bundle, and acceptance criteria.
 
 Boundary:
-- This project consumes `geospatial_dmi` as the upstream platform for data/services.
+- This project is informed by `geospatial_dmi` and may adopt selected components from it into `eudr_dmi` with explicit provenance.
 - This document does not describe, restate, or duplicate `geospatial_dmi` architecture.
 - Article 11 evidence requirements MUST be traceable to the policy-to-evidence spine.
 
