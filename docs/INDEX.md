@@ -9,6 +9,12 @@
 6. [50_method_notes_and_decisions.md](50_method_notes_and_decisions.md)
 7. [60_risk_register.md](60_risk_register.md)
 8. [70_change_control.md](70_change_control.md)
+9. [regulation_sources.md](regulation_sources.md)
+10. [regulation_sources.json](regulation_sources.json)
+11. [regulation_links.html](regulation_links.html)
+12. [articles/eudr_article_summaries.md](articles/eudr_article_summaries.md)
+13. [secrets_handling.md](secrets_handling.md)
+14. [architecture/decision_records/ADR-0001-project-scope.md](architecture/decision_records/ADR-0001-project-scope.md)
 
 ## Document Map
 
@@ -22,3 +28,8 @@
 | [50_method_notes_and_decisions.md](50_method_notes_and_decisions.md) | Records decisions and policies for uncertainty/conflicts across sources. | When outcomes are challenged or method changes are proposed. |
 | [60_risk_register.md](60_risk_register.md) | Identifies risks, controls, and how controls are evidenced. | For risk review, audit planning, and release gating. |
 | [70_change_control.md](70_change_control.md) | Versioning and release rules for docs and evidence schemas. | Before releases and whenever controls/evidence/schema change. |
+| [regulation_sources.md](regulation_sources.md) | Human-readable registry of authoritative EUR-Lex artefacts and SHA-256 fingerprints. | When validating legal source snapshots for audit.
+| [regulation_sources.json](regulation_sources.json) | Machine-readable registry of regulation sources (paths + hashes). | Used by tooling to verify/update hashes.
+| [regulation_links.html](regulation_links.html) | Operator launcher for interactive EUR-Lex access (WAF/login-safe). | When browser access is needed to obtain snapshots.
+| [articles/eudr_article_summaries.md](articles/eudr_article_summaries.md) | Short, non-verbatim summaries of Articles 9–11. | For orientation; not authoritative.
+| [secrets_handling.md](secrets_handling.md) | Operator guidance for cookie jar storage outside the repo. | Before using fetch mode or handling secrets.

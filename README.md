@@ -1,7 +1,9 @@
 # EUDR DMI GIL — Inspection-Oriented Documentation
 
 ## Purpose
-This repository maintains the inspection-oriented documentation and evidence bundle conventions for EUDR-facing outputs. This project consumes `geospatial_dmi` as the upstream platform for data/services; it defines what evidence must exist, how it is verified, and how changes are controlled.
+This repository maintains the inspection-oriented documentation and evidence bundle conventions for EUDR-facing outputs. This project is informed by `geospatial_dmi` and adopts selected components/patterns from it (with explicit provenance), while specializing and evolving them for EUDR Digital Twin needs.
+
+Authoritative scope statement: [docs/architecture/decision_records/ADR-0001-project-scope.md](docs/architecture/decision_records/ADR-0001-project-scope.md)
 
 ## What This Repo Produces
 - Evidence bundle specification and verification rules (manifest + hashing + determinism expectations)
@@ -29,5 +31,5 @@ Notes:
 - Start here: [docs/INDEX.md](docs/INDEX.md)
 
 ## Non-goals
-- This project consumes `geospatial_dmi`.
+- This project does not treat `geospatial_dmi` as a read-only upstream to be “consumed”.
 - No platform architecture duplication: do not copy, restate, or re-document `geospatial_dmi` architecture in this repository; only reference canonical entrypoints (TODO: add links/paths once confirmed).

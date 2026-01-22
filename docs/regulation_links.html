@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EUDR Regulation Links (Operator Launcher)</title>
+  </head>
+  <body>
+    <h1>EUDR Regulation Links (Operator Launcher)</h1>
+
+    <p>
+      Use this page to open authoritative EUR-Lex sources in a normal browser session.
+      Interactive access may require WAF/login challenges.
+      Do not attempt to bypass challenges; authenticate normally in the browser if needed.
+    </p>
+
+    <p>
+      When a download is possible, save the artefact to the exact server path shown below under
+      <code>/Users/server/audit/eudr_dmi/</code>, then run the acquisition tool to hash and register it.
+    </p>
+
+    <ul>
+      <li>
+        <strong>OJ (ELI) HTML (EN)</strong><br />
+        URL: <a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng">https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng</a><br />
+        Server local path: <code>/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/eudr_2023_1115_oj_eng.html</code>
+      </li>
+      <li>
+        <strong>EUDR “digital twin” entry point (LSU) (EN)</strong><br />
+        URL: <a href="https://eur-lex.europa.eu/legal-content/EN/LSU/?uri=CELEX:32023R1115">https://eur-lex.europa.eu/legal-content/EN/LSU/?uri=CELEX:32023R1115</a><br />
+        Mirrored by script as: <code>&lt;out&gt;/&lt;YYYY-MM-DD&gt;/lsu_entry.html</code>
+      </li>
+      <li>
+        <strong>Consolidated HTML (2024-12-26) (EN)</strong><br />
+        URL: <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02023R1115-20241226">https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02023R1115-20241226</a><br />
+        Server local path: <code>/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/eudr_2023_1115_consolidated_2024-12-26_en.html</code>
+      </li>
+      <li>
+        <strong>CELEX PDF endpoint (32023R1115) (EN)</strong><br />
+        URL: <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R1115">https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R1115</a><br />
+        Server local path: <code>/Users/server/audit/eudr_dmi/regulation/eudr_2023_1115/eudr_2023_1115_celex_32023R1115_en.pdf</code>
+      </li>
+    </ul>
+
+    <hr />
+    <p>
+      Next step (verify-only):
+      <code>python tools/regulation/acquire_and_hash.py --verify</code>
+    </p>
+  </body>
+</html>

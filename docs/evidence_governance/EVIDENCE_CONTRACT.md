@@ -4,7 +4,7 @@
 This contract defines the minimum obligations for any generator or workflow that produces evidence bundles for this project, and the minimum expectations for inspection. It is project-level and does not describe the consumed platform `geospatial_dmi`.
 
 ## Boundaries
-- This project consumes `geospatial_dmi` via its canonical entrypoints (TODO: reference links/paths).
+- This project is informed by `geospatial_dmi` and may adopt selected components/patterns from it (with explicit provenance), while continuing to reference canonical entrypoints where appropriate (TODO: reference links/paths).
 - Do not copy, restate, or re-document `geospatial_dmi` architecture here.
 
 ## Contract Parties

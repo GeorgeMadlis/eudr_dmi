@@ -4,7 +4,7 @@
 Provides a step-by-step checklist for inspecting an evidence bundle produced under this project’s conventions.
 
 ## Boundaries
-- This project consumes `geospatial_dmi`.
+- This project is informed by `geospatial_dmi` and may adopt selected components from it into `eudr_dmi` with explicit provenance.
 - This checklist does not document `geospatial_dmi` architecture; it checks only project-owned evidence artifacts.
 
 ## Checklist
