@@ -1,0 +1,29 @@
+{
+  "server_id": "era5_http_mcp",
+  "family": "ERA5",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'ERA5'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "ecmwf_era5",
+    "primary_url": "https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

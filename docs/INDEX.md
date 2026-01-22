@@ -1,35 +1,35 @@
 # Documentation Index
 
 ## Read in This Order
-1. [00_scope_and_assurance.md](00_scope_and_assurance.md)
-2. [10_policy_to_evidence_spine.md](10_policy_to_evidence_spine.md)
-3. [20_evidence_bundle_spec.md](20_evidence_bundle_spec.md)
-4. [30_runbook.md](30_runbook.md)
-5. [40_data_dependency_register.md](40_data_dependency_register.md)
-6. [50_method_notes_and_decisions.md](50_method_notes_and_decisions.md)
-7. [60_risk_register.md](60_risk_register.md)
-8. [70_change_control.md](70_change_control.md)
-9. [regulation_sources.md](regulation_sources.md)
-10. [regulation_sources.json](regulation_sources.json)
-11. [regulation_links.html](regulation_links.html)
-12. [articles/eudr_article_summaries.md](articles/eudr_article_summaries.md)
-13. [secrets_handling.md](secrets_handling.md)
-14. [architecture/decision_records/ADR-0001-project-scope.md](architecture/decision_records/ADR-0001-project-scope.md)
+1. [docs/README.md](README.md)
+1. [docs/architecture/decision_records/ADR-0001-project-scope.md](architecture/decision_records/ADR-0001-project-scope.md)
+2. [docs/overview.md](overview.md)
+3. [docs/architecture/digital_twin_model.md](architecture/digital_twin_model.md)
+4. [docs/architecture/adoption_policy.md](architecture/adoption_policy.md)
+5. [docs/regulation/sources.md](regulation/sources.md)
+6. [docs/regulation/policy_to_evidence_spine.md](regulation/policy_to_evidence_spine.md)
+7. [docs/architecture/evidence_contract.md](architecture/evidence_contract.md)
+8. [docs/architecture/evidence_bundle_spec.md](architecture/evidence_bundle_spec.md)
+9. [docs/architecture/dependency_register.md](architecture/dependency_register.md)
+10. [docs/architecture/method_notes_and_decisions.md](architecture/method_notes_and_decisions.md)
+11. [docs/operations/runbooks.md](operations/runbooks.md)
+12. [docs/operations/inspection_checklist.md](operations/inspection_checklist.md)
+13. [docs/architecture/risk_register.md](architecture/risk_register.md)
+14. [docs/architecture/change_control.md](architecture/change_control.md)
+15. [docs/glossary.md](glossary.md)
+16. [docs/articles/eudr_article_summaries.md](articles/eudr_article_summaries.md)
 
 ## Document Map
 
 | Document | Purpose | When to use |
 |---|---|---|
-| [00_scope_and_assurance.md](00_scope_and_assurance.md) | Defines scope, definitions, input requirements, output semantics, assumptions/limitations. | At onboarding, during audit scoping, and when interpreting outcomes. |
-| [10_policy_to_evidence_spine.md](10_policy_to_evidence_spine.md) | Maps obligations to control objectives and concrete evidence artifacts. | For audit walkthroughs and control testing. |
-| [20_evidence_bundle_spec.md](20_evidence_bundle_spec.md) | Defines bundle structure, required files, manifest/hashing, and determinism rules. | To validate bundles and to implement/verify generators. |
-| [30_runbook.md](30_runbook.md) | Operator execution and verification steps with troubleshooting. | For routine runs, incident response, and reproducibility checks. |
-| [40_data_dependency_register.md](40_data_dependency_register.md) | Lists only the external datasets/services from `geospatial_dmi` this project uses. | For provenance review, currency checks, and dependency risk review. |
-| [50_method_notes_and_decisions.md](50_method_notes_and_decisions.md) | Records decisions and policies for uncertainty/conflicts across sources. | When outcomes are challenged or method changes are proposed. |
-| [60_risk_register.md](60_risk_register.md) | Identifies risks, controls, and how controls are evidenced. | For risk review, audit planning, and release gating. |
-| [70_change_control.md](70_change_control.md) | Versioning and release rules for docs and evidence schemas. | Before releases and whenever controls/evidence/schema change. |
-| [regulation_sources.md](regulation_sources.md) | Human-readable registry of authoritative EUR-Lex artefacts and SHA-256 fingerprints. | When validating legal source snapshots for audit.
-| [regulation_sources.json](regulation_sources.json) | Machine-readable registry of regulation sources (paths + hashes). | Used by tooling to verify/update hashes.
-| [regulation_links.html](regulation_links.html) | Operator launcher for interactive EUR-Lex access (WAF/login-safe). | When browser access is needed to obtain snapshots.
-| [articles/eudr_article_summaries.md](articles/eudr_article_summaries.md) | Short, non-verbatim summaries of Articles 9–11. | For orientation; not authoritative.
-| [secrets_handling.md](secrets_handling.md) | Operator guidance for cookie jar storage outside the repo. | Before using fetch mode or handling secrets.
+| [docs/overview.md](overview.md) | Scope, definitions, operator inputs, and standardized outcome semantics. | Onboarding and audit scoping. |
+| [docs/architecture/digital_twin_model.md](architecture/digital_twin_model.md) | Inspection model for the EUDR Digital Twin (mirroring, change detection, and triggering). | When integrating downstream automation or explaining update triggers. |
+| [docs/architecture/adoption_policy.md](architecture/adoption_policy.md) | Provenance requirements for adopting external components (adopt-and-evolve) and prohibited coupling patterns. | When copying in upstream code or reviewing dependencies. |
+| [docs/regulation/sources.md](regulation/sources.md) | Deterministic EUR-Lex mirroring workflow and hashed source registry. | When validating regulation snapshots and change detection. |
+| [docs/regulation/policy_to_evidence_spine.md](regulation/policy_to_evidence_spine.md) | Obligation → objective → artifact → acceptance criteria mapping. | During control testing and audit walkthroughs. |
+| [docs/architecture/evidence_contract.md](architecture/evidence_contract.md) | Evidence contract: what artifacts exist and what they mean. | When implementing or reviewing evidence producers/consumers. |
+| [docs/architecture/evidence_bundle_spec.md](architecture/evidence_bundle_spec.md) | Evidence bundle layout, required files, hashing and determinism rules. | When validating bundles or building generators/validators. |
+| [docs/operations/runbooks.md](operations/runbooks.md) | Operator runbook: preflight, execution, verification, troubleshooting. | Routine runs and incident response. |
+| [docs/operations/secrets_handling.md](operations/secrets_handling.md) | Cookie jar storage outside the repo and operational handling. | When interactive browser sessions/cookies are required for WAF-safe sourcing. |
+| [docs/glossary.md](glossary.md) | Project terminology. | Quick reference. |

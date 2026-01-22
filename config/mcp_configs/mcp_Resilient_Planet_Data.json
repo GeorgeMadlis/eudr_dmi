@@ -1,0 +1,29 @@
+{
+  "server_id": "resilient_planet_data_http_mcp",
+  "family": "Resilient_Planet_Data",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'Resilient_Planet_Data'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "resilient-planet-data_resilient_planet_data_hub",
+    "primary_url": "https://resilient-planet-data.org/",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://resilient-planet-data.org/"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

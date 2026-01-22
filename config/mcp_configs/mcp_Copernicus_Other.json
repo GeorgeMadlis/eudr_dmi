@@ -1,0 +1,30 @@
+{
+  "server_id": "copernicus_other_http_mcp",
+  "family": "Copernicus_Other",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'Copernicus_Other'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "google_copernicus_global_land_cover_layers:_cgl",
+    "primary_url": "https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_Landcover_100m_Proba-V-C3_Global#description",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_Landcover_100m_Proba-V-C3_Global#description",
+    "https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Browse;Root=512260;Collection=1000062;Time=NORMAL,NORMAL,-1,,,-1"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

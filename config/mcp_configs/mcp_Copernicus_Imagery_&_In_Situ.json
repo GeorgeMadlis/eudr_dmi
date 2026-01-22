@@ -1,0 +1,29 @@
+{
+  "server_id": "copernicus imagery & in situ_http_mcp",
+  "family": "Copernicus Imagery & In Situ",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'Copernicus Imagery & In Situ'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "copernicus_clms_portfolio_—_copernicus_land_monitor",
+    "primary_url": "https://land.copernicus.eu/imagery-in-situ",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://land.copernicus.eu/imagery-in-situ"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

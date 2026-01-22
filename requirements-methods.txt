@@ -1,0 +1,15 @@
+# Method-level (geospatial) dependencies for running method tests.
+# Install explicitly when you want to run raster/geometry-backed checks.
+
+# Raster I/O and masking (used by deforestation area estimation).
+rasterio
+
+# Geometry handling/validation for AOI GeoJSON (optional at runtime; enables stronger validation).
+shapely
+
+# CRS/transform support that is commonly required in geospatial stacks.
+# (Not imported by the methods today, but validated by scripts/check_method_deps.py.)
+pyproj
+
+# Array operations used by raster/geometry libraries and common for raster workflows.
+numpy

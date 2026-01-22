@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "eudr-dmi"
 version = "0.1.0"
-description = "EUDR DMI GIL (inspection-grade; consumes geospatial_dmi)"
+description = "EUDR DMI GIL (inspection-grade; informed by geospatial_dmi; EUDR-specific)"
 requires-python = ">=3.11"
 dependencies = []
 

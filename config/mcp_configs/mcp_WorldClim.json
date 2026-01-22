@@ -1,0 +1,25 @@
+{
+  "server_id": "worldclim_mcp",
+  "family": "WorldClim",
+  "server_type": "http_static_files",
+  "description": "MCP server for downloading WorldClim climate grids (e.g. BIO variables) at various resolutions.",
+  "source_catalogue_example": {
+    "dataset_id": "worldclim_help_—_worldclim_1_documentation",
+    "primary_url": "https://www.worldclim.org/data/help.html",
+    "provider": NaN
+  },
+  "storage": {
+    "base_url_hint": "https://www.worldclim.org/data/help.html"
+  },
+  "tools": [
+    {
+      "name": "download_worldclim_layer",
+      "description": "Download a specific WorldClim layer at given resolution.",
+      "arguments": {
+        "variable": "str (e.g. 'bio1')",
+        "resolution": "str (e.g. '2.5m')",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

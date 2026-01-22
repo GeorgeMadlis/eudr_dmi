@@ -10,13 +10,33 @@ from pathlib import Path
 
 from eudr_dmi.evidence.hash_utils import sha256_file, write_manifest_sha256
 
-SERVER_AUDIT_ROOT = Path("/Users/server/audit/eudr_dmi")
-REGULATION_ROOT = SERVER_AUDIT_ROOT / "regulation" / "eudr_2023_1115"
-REGULATION_FILES = [
-    REGULATION_ROOT / "eudr_2023_1115_oj_eng.html",
-    REGULATION_ROOT / "eudr_2023_1115_consolidated_2024-12-26_en.html",
-    REGULATION_ROOT / "eudr_2023_1115_celex_32023R1115_en.pdf",
-]
+
+def resolve_audit_root(repo_root: Path) -> Path:
+    configured = os.getenv("EUDR_DMI_AUDIT_ROOT")
+    if configured:
+        configured_path = Path(configured)
+        if configured_path.is_absolute():
+            return configured_path
+        return (repo_root / configured_path).resolve()
+    return (repo_root / "audit").resolve()
+
+
+def resolve_regulation_root(audit_root: Path) -> Path:
+    configured = os.getenv("EUDR_DMI_REGULATION_ROOT")
+    if configured:
+        configured_path = Path(configured)
+        if configured_path.is_absolute():
+            return configured_path
+        return (audit_root / configured_path).resolve()
+    return (audit_root / "regulation" / "eudr_2023_1115").resolve()
+
+
+def _regulation_files(regulation_root: Path) -> list[Path]:
+    return [
+        regulation_root / "eudr_2023_1115_oj_eng.html",
+        regulation_root / "eudr_2023_1115_consolidated_2024-12-26_en.html",
+        regulation_root / "eudr_2023_1115_celex_32023R1115_en.pdf",
+    ]
 
 
 def _repo_root() -> Path:
@@ -51,7 +71,11 @@ def compute_bundle_id(aoi_file: str | Path, from_date: str, to_date: str) -> str
 
 
 def resolve_evidence_root(repo_root: Path) -> Path:
-    configured = os.getenv("EUDR_DMI_EVIDENCE_ROOT") or "audit/evidence"
+    configured = os.getenv("EUDR_DMI_EVIDENCE_ROOT")
+    if not configured:
+        audit_root = resolve_audit_root(repo_root)
+        return (audit_root / "evidence").resolve()
+
     configured_path = Path(configured)
     if configured_path.is_absolute():
         return configured_path
@@ -91,25 +115,27 @@ def build_bundle(
 ) -> Path:
     repo_root = _repo_root()
     evidence_root = resolve_evidence_root(repo_root)
+    audit_root = resolve_audit_root(repo_root)
+    regulation_root = resolve_regulation_root(audit_root)
 
     run_date = date.today().isoformat()
     bundle_id = compute_bundle_id(aoi_file, from_date, to_date)
     bundle_dir = evidence_root / run_date / bundle_id
     bundle_dir.mkdir(parents=True, exist_ok=False)
 
-    aoi_path = Path(aoi_file)
+    aoi_path = Path(aoi_file).resolve()
     aoi_sha = sha256_file(aoi_path)
 
-    sums_path = REGULATION_ROOT / "SHA256SUMS.txt"
+    sums_path = regulation_root / "SHA256SUMS.txt"
     sums_map = _load_sha256sums(sums_path)
 
     regulation_sources: list[dict[str, object]] = []
-    for p in REGULATION_FILES:
+    for p in _regulation_files(regulation_root):
         regulation_sources.append(
             {
-                "local_path": str(p),
+                "local_path": str(p.resolve()),
                 "sha256": sums_map.get(p.name) or _safe_sha256_if_exists(p),
-                "sha256sums_path": str(sums_path),
+                "sha256sums_path": str(sums_path.resolve()),
             }
         )
 
@@ -120,7 +146,7 @@ def build_bundle(
             "commodity": commodity,
             "from_date": from_date,
             "to_date": to_date,
-            "aoi_file_path": str(aoi_file),
+            "aoi_file_path": str(aoi_path),
             "aoi_file_sha256": aoi_sha,
         },
         "evidence_root_resolved": str(evidence_root),

@@ -1,0 +1,29 @@
+{
+  "server_id": "google satellite embeddings_http_mcp",
+  "family": "Google Satellite Embeddings",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'Google Satellite Embeddings'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "google_satellite_embedding_v1_ | _earth_engine_",
+    "primary_url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

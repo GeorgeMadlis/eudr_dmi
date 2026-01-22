@@ -1,0 +1,39 @@
+{
+  "server_id": "gfw_forest_carbon_mcp",
+  "family": "GFW_Forest_Carbon",
+  "server_type": "ckan_http",
+  "description": "MCP server for GFW Forest Carbon Gross Removals hosted on WRI CKAN. Exposes tools to inspect CKAN package metadata and download resources.",
+  "source_catalogue_example": {
+    "dataset_id": "wri_forest_carbon_removals_-_datasets_-_wri_",
+    "primary_url": "https://datasets.wri.org/datasets/gfw-forest-carbon-gross-removals",
+    "provider": NaN
+  },
+  "ckan": {
+    "package_show_endpoint": NaN,
+    "expected_formats": [
+      "GeoJSON",
+      "GeoTIFF",
+      "CSV",
+      "Shapefile"
+    ]
+  },
+  "tools": [
+    {
+      "name": "get_package_metadata",
+      "description": "Return CKAN package_show metadata for the dataset.",
+      "arguments": {}
+    },
+    {
+      "name": "list_resources",
+      "description": "List resources (URLs, formats, size) from the CKAN package.",
+      "arguments": {}
+    },
+    {
+      "name": "download_resource",
+      "description": "Download a specific resource by resource_id.",
+      "arguments": {
+        "resource_id": "str"
+      }
+    }
+  ]
+}

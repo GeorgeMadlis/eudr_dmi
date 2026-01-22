@@ -22,7 +22,7 @@ Boundary:
 | Determinism and verification rules applicable to Article 09 artifacts. | Legal advice or non-testable interpretations. |
 
 ## Evidence Outputs (File Names + Semantics)
-These artifacts are expected to exist inside a compliant evidence bundle (see [docs/20_evidence_bundle_spec.md](../../20_evidence_bundle_spec.md)).
+These artifacts are expected to exist inside a compliant evidence bundle (see [docs/architecture/evidence_bundle_spec.md](../../architecture/evidence_bundle_spec.md)).
 
 | Artifact | Semantics | Acceptance criteria |
 |---|---|---|
@@ -37,9 +37,9 @@ This scaffold creates a minimal, deterministic evidence bundle skeleton. Integra
 ## Regulatory references
 Authoritative text is stored as hashed EUR-Lex artefacts under the server audit root (not in this repo).
 
-- Human registry: [docs/regulation_sources.md](../../regulation_sources.md)
-- Machine registry: [docs/regulation_sources.json](../../regulation_sources.json)
-- Browser launcher: [docs/regulation_links.html](../../regulation_links.html)
+- Human registry: [docs/regulation/sources.md](../../regulation/sources.md)
+- Machine registry: [docs/regulation/sources.json](../../regulation/sources.json)
+- Browser launcher: [docs/regulation/links.html](../../regulation/links.html)
 - Non-verbatim summaries: [docs/articles/eudr_article_summaries.md](../eudr_article_summaries.md)
 
 Evidence root policy:

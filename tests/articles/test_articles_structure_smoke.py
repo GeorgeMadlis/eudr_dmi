@@ -7,8 +7,8 @@ def test_expected_project_structure_exists() -> None:
     expected_paths = [
         repo_root / "README.md",
         repo_root / "docs" / "INDEX.md",
-        repo_root / "docs" / "evidence_governance" / "EVIDENCE_CONTRACT.md",
-        repo_root / "docs" / "evidence_governance" / "INSPECTION_CHECKLIST.md",
+        repo_root / "docs" / "architecture" / "evidence_contract.md",
+        repo_root / "docs" / "operations" / "inspection_checklist.md",
         repo_root / "docs" / "articles" / "art_09" / "README.md",
         repo_root / "docs" / "articles" / "art_10" / "README.md",
         repo_root / "docs" / "articles" / "art_11" / "README.md",

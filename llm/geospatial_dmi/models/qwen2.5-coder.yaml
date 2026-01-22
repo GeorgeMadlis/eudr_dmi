@@ -1,0 +1,11 @@
+name: qwen2.5-coder:7b
+role: analytical_support
+tier: 3
+approved_use:
+  - code_assist
+  - diff_generation
+  - structured_summaries
+prohibited_use:
+  - legal_interpretation
+  - autonomous_decision
+  - unreviewed_changes

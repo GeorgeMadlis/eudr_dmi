@@ -22,7 +22,7 @@ Boundary:
 | Deterministic artifact generation and validation rules. | Speculative claims without verifiable artifacts. |
 
 ## Evidence Outputs (File Names + Semantics)
-Expected artifacts inside the evidence bundle (see [docs/20_evidence_bundle_spec.md](../../20_evidence_bundle_spec.md)).
+Expected artifacts inside the evidence bundle (see [docs/architecture/evidence_bundle_spec.md](../../architecture/evidence_bundle_spec.md)).
 
 | Artifact | Semantics | Acceptance criteria |
 |---|---|---|
@@ -53,7 +53,7 @@ Commands are intentionally placeholders until the generator interface is finaliz
    - Open `outputs/articles/art_11.json`.
    - For each control, confirm the evidence references are present and hashed.
 4. Validate provenance alignment:
-   - Cross-check `provenance/provenance.json` against [docs/40_data_dependency_register.md](../../40_data_dependency_register.md).
+   - Cross-check `provenance/provenance.json` against [docs/architecture/dependency_register.md](../../architecture/dependency_register.md).
 5. Check summary alignment:
    - Confirm the overall `outputs/summary.json` status is consistent with Article 11 control outcomes.
 

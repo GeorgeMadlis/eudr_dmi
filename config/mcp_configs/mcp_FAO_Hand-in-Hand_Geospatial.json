@@ -1,0 +1,29 @@
+{
+  "server_id": "fao_hand-in-hand_geospatial_http_mcp",
+  "family": "FAO_Hand-in-Hand_Geospatial",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'FAO_Hand-in-Hand_Geospatial'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "fao_hand_in_hand_geospatial",
+    "primary_url": "https://data.apps.fao.org/map/catalog/srv/eng/catalog.search",
+    "provider": "Food and Agriculture Organization (FAO)"
+  },
+  "known_urls": [
+    "https://data.apps.fao.org/map/catalog/srv/eng/catalog.search"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

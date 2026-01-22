@@ -1,0 +1,29 @@
+{
+  "server_id": "geobon ebv headline indicators_http_mcp",
+  "family": "GEOBON EBV Headline Indicators",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'GEOBON EBV Headline Indicators'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "cbd_geobon-headline-indicators-en.pdf",
+    "primary_url": "https://www.cbd.int/doc/c/815b/9afa/941a22fc6c8760acbf3ab6a3/geobon-headline-indicators-en.pdf",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://www.cbd.int/doc/c/815b/9afa/941a22fc6c8760acbf3ab6a3/geobon-headline-indicators-en.pdf"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

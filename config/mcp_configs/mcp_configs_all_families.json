@@ -1,0 +1,829 @@
+{
+  "CGLS LAI": {
+    "server_id": "cgls lai_http_mcp",
+    "family": "CGLS LAI",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'CGLS LAI'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "copernicus_vegetation_—_copernicus_land_monitoring_",
+      "primary_url": "https://land.copernicus.eu/global/products/lai",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://land.copernicus.eu/global/products/lai"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "COPERNICUS_LANDCOVER": {
+    "server_id": "copernicus_landcover_http_mcp",
+    "family": "COPERNICUS_LANDCOVER",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'COPERNICUS_LANDCOVER'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "copernicus_landcover_100m",
+      "primary_url": "https://land.copernicus.eu/en/products/global-dynamic-land-cover",
+      "provider": "Copernicus Global Land Service"
+    },
+    "known_urls": [
+      "https://land.copernicus.eu/en/products/global-dynamic-land-cover"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Copernicus Climate Data Store (CDS)": {
+    "server_id": "copernicus climate data store (cds)_http_mcp",
+    "family": "Copernicus Climate Data Store (CDS)",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Copernicus Climate Data Store (CDS)'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "copernicus_climate_data_store",
+      "primary_url": "https://cds.climate.copernicus.eu/",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://cds.climate.copernicus.eu/",
+      "https://cds.climate.copernicus.eu/datasets",
+      "https://cds.climate.copernicus.eu/datasets/satellite-land-cover?tab=overview"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Copernicus Global Land Service (CGLS)": {
+    "server_id": "copernicus global land service (cgls)_http_mcp",
+    "family": "Copernicus Global Land Service (CGLS)",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Copernicus Global Land Service (CGLS)'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "copernicus_please_update_your_bookmarks_—_copernicu",
+      "primary_url": "https://land.copernicus.eu/global/",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://land.copernicus.eu/global/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Copernicus Imagery & In Situ": {
+    "server_id": "copernicus imagery & in situ_http_mcp",
+    "family": "Copernicus Imagery & In Situ",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Copernicus Imagery & In Situ'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "copernicus_clms_portfolio_—_copernicus_land_monitor",
+      "primary_url": "https://land.copernicus.eu/imagery-in-situ",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://land.copernicus.eu/imagery-in-situ"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Copernicus_Other": {
+    "server_id": "copernicus_other_http_mcp",
+    "family": "Copernicus_Other",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Copernicus_Other'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "google_copernicus_global_land_cover_layers:_cgl",
+      "primary_url": "https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_Landcover_100m_Proba-V-C3_Global#description",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_Landcover_100m_Proba-V-C3_Global#description",
+      "https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Browse;Root=512260;Collection=1000062;Time=NORMAL,NORMAL,-1,,,-1"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "DYNAMIC_WORLD": {
+    "server_id": "dynamic_world_http_mcp",
+    "family": "DYNAMIC_WORLD",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'DYNAMIC_WORLD'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "google_dynamic_world",
+      "primary_url": "https://dynamicworld.app/",
+      "provider": "Google / World Resources Institute"
+    },
+    "known_urls": [
+      "https://dynamicworld.app/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Dynamic World": {
+    "server_id": "dynamic world_http_mcp",
+    "family": "Dynamic World",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Dynamic World'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "google_dynamic_world_v1_ | _earth_engine_data_c",
+      "primary_url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "ERA5": {
+    "server_id": "era5_http_mcp",
+    "family": "ERA5",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'ERA5'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "ecmwf_era5",
+      "primary_url": "https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "FAO_FAOSTAT": {
+    "server_id": "fao_faostat_http_mcp",
+    "family": "FAO_FAOSTAT",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'FAO_FAOSTAT'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "fao_faostat",
+      "primary_url": "https://www.fao.org/faostat/en/",
+      "provider": "Food and Agriculture Organization (FAO)"
+    },
+    "known_urls": [
+      "https://www.fao.org/faostat/en/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "FAO_Hand-in-Hand_Geospatial": {
+    "server_id": "fao_hand-in-hand_geospatial_http_mcp",
+    "family": "FAO_Hand-in-Hand_Geospatial",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'FAO_Hand-in-Hand_Geospatial'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "fao_hand_in_hand_geospatial",
+      "primary_url": "https://data.apps.fao.org/map/catalog/srv/eng/catalog.search",
+      "provider": "Food and Agriculture Organization (FAO)"
+    },
+    "known_urls": [
+      "https://data.apps.fao.org/map/catalog/srv/eng/catalog.search"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "GBIF": {
+    "server_id": "gbif_mcp",
+    "family": "GBIF",
+    "server_type": "rest_api",
+    "description": "MCP server wrapping GBIF occurrence and dataset APIs for species observations and checklists.",
+    "source_catalogue_example": {
+      "dataset_id": "gbif_gbif",
+      "primary_url": "https://www.gbif.org/",
+      "provider": NaN
+    },
+    "gbif": {
+      "base_url": "https://api.gbif.org/v1"
+    },
+    "tools": [
+      {
+        "name": "search_occurrences",
+        "description": "Search GBIF occurrences by taxon, bbox, and time range.",
+        "arguments": {
+          "scientific_name": "str",
+          "min_lon": "float",
+          "min_lat": "float",
+          "max_lon": "float",
+          "max_lat": "float",
+          "start_date": "YYYY-MM-DD",
+          "end_date": "YYYY-MM-DD",
+          "limit": "int"
+        }
+      }
+    ]
+  },
+  "GEOBON EBV Headline Indicators": {
+    "server_id": "geobon ebv headline indicators_http_mcp",
+    "family": "GEOBON EBV Headline Indicators",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'GEOBON EBV Headline Indicators'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "cbd_geobon-headline-indicators-en.pdf",
+      "primary_url": "https://www.cbd.int/doc/c/815b/9afa/941a22fc6c8760acbf3ab6a3/geobon-headline-indicators-en.pdf",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://www.cbd.int/doc/c/815b/9afa/941a22fc6c8760acbf3ab6a3/geobon-headline-indicators-en.pdf"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "GEOBON EBVs": {
+    "server_id": "geobon ebvs_http_mcp",
+    "family": "GEOBON EBVs",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'GEOBON EBVs'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "geobon_ebv_data_portal",
+      "primary_url": "https://portal.geobon.org/home",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://portal.geobon.org/home"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "GEOBON_EBV": {
+    "server_id": "geobon_ebv_http_mcp",
+    "family": "GEOBON_EBV",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'GEOBON_EBV'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "geobon_ebv_portal",
+      "primary_url": "https://portal.geobon.org/",
+      "provider": "Group on Earth Observations Biodiversity Observation Network (GEO BON)"
+    },
+    "known_urls": [
+      "https://portal.geobon.org/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "GFW_Forest_Carbon": {
+    "server_id": "gfw_forest_carbon_mcp",
+    "family": "GFW_Forest_Carbon",
+    "server_type": "ckan_http",
+    "description": "MCP server for GFW Forest Carbon Gross Removals hosted on WRI CKAN. Exposes tools to inspect CKAN package metadata and download resources.",
+    "source_catalogue_example": {
+      "dataset_id": "wri_forest_carbon_removals_-_datasets_-_wri_",
+      "primary_url": "https://datasets.wri.org/datasets/gfw-forest-carbon-gross-removals",
+      "provider": NaN
+    },
+    "ckan": {
+      "package_show_endpoint": NaN,
+      "expected_formats": [
+        "GeoJSON",
+        "GeoTIFF",
+        "CSV",
+        "Shapefile"
+      ]
+    },
+    "tools": [
+      {
+        "name": "get_package_metadata",
+        "description": "Return CKAN package_show metadata for the dataset.",
+        "arguments": {}
+      },
+      {
+        "name": "list_resources",
+        "description": "List resources (URLs, formats, size) from the CKAN package.",
+        "arguments": {}
+      },
+      {
+        "name": "download_resource",
+        "description": "Download a specific resource by resource_id.",
+        "arguments": {
+          "resource_id": "str"
+        }
+      }
+    ]
+  },
+  "Google Satellite Embeddings": {
+    "server_id": "google satellite embeddings_http_mcp",
+    "family": "Google Satellite Embeddings",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Google Satellite Embeddings'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "google_satellite_embedding_v1_ | _earth_engine_",
+      "primary_url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Google_Solar": {
+    "server_id": "google_solar_mcp",
+    "family": "Google_Solar",
+    "server_type": "google_solar_rest",
+    "description": "MCP server for Google Solar API. Provides solar potential data including rooftop analysis, solar panel configurations, and energy production estimates.",
+    "source_catalogue_example": {
+      "dataset_id": "google_solar_api",
+      "primary_url": "https://developers.google.com/maps/documentation/solar/overview",
+      "provider": "Google"
+    },
+    "api": {
+      "base_url": "https://solar.googleapis.com/v1",
+      "documentation": "https://developers.google.com/maps/documentation/solar/overview"
+    },
+    "required_auth": {
+      "method": "api_key",
+      "env_var": "GOOGLE_MAPS_API_KEY",
+      "alternative_methods": [
+        "oauth2",
+        "service_account"
+      ],
+      "alternative_env_vars": [
+        "GOOGLE_APPLICATION_CREDENTIALS"
+      ]
+    },
+    "registration_required": true,
+    "registration_url": "https://console.cloud.google.com/apis/library/solar.googleapis.com",
+    "authentication_method": "api_key",
+    "auth_env_hints": "GOOGLE_MAPS_API_KEY, GOOGLE_APPLICATION_CREDENTIALS",
+    "tools": [
+      {
+        "name": "get_building_insights",
+        "description": "Get solar potential information for a specific location.",
+        "arguments": {
+          "location": "dict (latitude, longitude)",
+          "required_quality": "str (optional, e.g. 'HIGH', 'MEDIUM', 'LOW')"
+        }
+      },
+      {
+        "name": "get_data_layers",
+        "description": "Get available solar data layers for a location.",
+        "arguments": {
+          "location": "dict (latitude, longitude)",
+          "radius_meters": "float",
+          "view": "str (e.g. 'FULL_LAYERS', 'DSM_LAYER', 'IMAGERY_LAYER')"
+        }
+      },
+      {
+        "name": "get_geotiff",
+        "description": "Download GeoTIFF data for solar analysis.",
+        "arguments": {
+          "location": "dict (latitude, longitude)",
+          "radius_meters": "float",
+          "layer_type": "str (e.g. 'DSM', 'RGB', 'MASK', 'ANNUAL_FLUX')"
+        }
+      }
+    ]
+  },
+  "Hansen_GFC": {
+    "server_id": "hansen_gfc_mcp",
+    "family": "Hansen_GFC",
+    "server_type": "eo_tiles_http",
+    "description": "MCP server for Hansen Global Forest Change (GFC) 2000–2024 v1.12. Exposes tools to list and download 10x10 degree GeoTIFF tiles for layers: treecover2000, loss, lossyear, gain, datamask.",
+    "source_catalogue_example": {
+      "dataset_id": "googleapis_global_forest_change",
+      "primary_url": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html",
+      "provider": NaN
+    },
+    "tiling_scheme": {
+      "crs": "EPSG:4326",
+      "tile_size_degrees": 10,
+      "tile_grid": "global_lon_lat"
+    },
+    "layers": [
+      "treecover2000",
+      "loss",
+      "lossyear",
+      "gain",
+      "datamask"
+    ],
+    "storage": {
+      "type": "https",
+      "base_url": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/",
+      "pattern": "{layer}_{tile_id}.tif"
+    },
+    "tools": [
+      {
+        "name": "list_tiles",
+        "description": "List available tiles (by 10x10 degree indices) and their URLs.",
+        "arguments": {
+          "min_lon": "float",
+          "min_lat": "float",
+          "max_lon": "float",
+          "max_lat": "float",
+          "layer": "str (one of the configured layers)"
+        }
+      },
+      {
+        "name": "download_tile",
+        "description": "Download a single tile given its tile_id and layer.",
+        "arguments": {
+          "tile_id": "str",
+          "layer": "str"
+        }
+      }
+    ]
+  },
+  "Maa-amet Geoportaal": {
+    "server_id": "maa-amet geoportaal_http_mcp",
+    "family": "Maa-amet Geoportaal",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Maa-amet Geoportaal'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "maaamet_wms,_wfs,_wcs_teenused_|_geoportaal_|_ma",
+      "primary_url": "https://geoportaal.maaamet.ee/est/teenused/wms-wfs-wcs-teenused-p65.html",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://geoportaal.maaamet.ee/est/teenused/wms-wfs-wcs-teenused-p65.html"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Other_or_unsorted": {
+    "server_id": "other_or_unsorted_http_mcp",
+    "family": "Other_or_unsorted",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Other_or_unsorted'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "euroveg_eva-database-re-survey-europe",
+      "primary_url": "http://euroveg.org/eva-database-re-survey-europe",
+      "provider": NaN
+    },
+    "known_urls": [
+      "http://euroveg.org/eva-database-re-survey-europe",
+      "https://developers.google.com/earth-engine/datasets/",
+      "https://esg-intelligence.com/blockchain-for-sustainability/",
+      "https://forestreplot.ugent.be/",
+      "https://ipbes.net/node/36431",
+      "https://plus.figshare.com/articles/dataset/Natural_forests_of_the_world_2020_-_probability_maps/28881731",
+      "https://worldcover2020.esa.int/viewer",
+      "https://www.globio.info/globioweb",
+      "https://www.ipbes.net/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Our World in Data": {
+    "server_id": "our world in data_http_mcp",
+    "family": "Our World in Data",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Our World in Data'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "global-change-data-lab_global_change_data_lab",
+      "primary_url": "https://global-change-data-lab.org/",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://global-change-data-lab.org/",
+      "https://ourworldindata.org/",
+      "https://ourworldindata.org/funding",
+      "https://ourworldindata.org/grapher/population-with-un-projections",
+      "https://ourworldindata.org/nuclear-energy",
+      "https://ourworldindata.org/search"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "Resilient_Planet_Data": {
+    "server_id": "resilient_planet_data_http_mcp",
+    "family": "Resilient_Planet_Data",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'Resilient_Planet_Data'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "resilient-planet-data_resilient_planet_data_hub",
+      "primary_url": "https://resilient-planet-data.org/",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://resilient-planet-data.org/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "TorchGeo": {
+    "server_id": "torchgeo_http_mcp",
+    "family": "TorchGeo",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'TorchGeo'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "readthedocs_introduction_to_geospatial_data_—_torchg",
+      "primary_url": "https://torchgeo.readthedocs.io/en/stable/tutorials/geospatial.html",
+      "provider": NaN
+    },
+    "known_urls": [
+      "https://torchgeo.readthedocs.io/en/stable/api/datasets.html#module-torchgeo.datasets",
+      "https://torchgeo.readthedocs.io/en/stable/tutorials/geospatial.html"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "WDPA_PROTECTED_AREAS": {
+    "server_id": "wdpa_protected_areas_http_mcp",
+    "family": "WDPA_PROTECTED_AREAS",
+    "server_type": "http_generic",
+    "description": "Generic HTTP-based MCP server for dataset family 'WDPA_PROTECTED_AREAS'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+    "source_catalogue_example": {
+      "dataset_id": "wdpa_protected_areas",
+      "primary_url": "https://www.protectedplanet.net/",
+      "provider": "UNEP-WCMC / IUCN"
+    },
+    "known_urls": [
+      "https://www.protectedplanet.net/"
+    ],
+    "tools": [
+      {
+        "name": "list_known_urls",
+        "description": "Return the list of known dataset URLs for this family.",
+        "arguments": {}
+      },
+      {
+        "name": "download_url",
+        "description": "Download data from a given URL into local storage.",
+        "arguments": {
+          "url": "str",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  },
+  "WorldClim": {
+    "server_id": "worldclim_mcp",
+    "family": "WorldClim",
+    "server_type": "http_static_files",
+    "description": "MCP server for downloading WorldClim climate grids (e.g. BIO variables) at various resolutions.",
+    "source_catalogue_example": {
+      "dataset_id": "worldclim_help_—_worldclim_1_documentation",
+      "primary_url": "https://www.worldclim.org/data/help.html",
+      "provider": NaN
+    },
+    "storage": {
+      "base_url_hint": "https://www.worldclim.org/data/help.html"
+    },
+    "tools": [
+      {
+        "name": "download_worldclim_layer",
+        "description": "Download a specific WorldClim layer at given resolution.",
+        "arguments": {
+          "variable": "str (e.g. 'bio1')",
+          "resolution": "str (e.g. '2.5m')",
+          "target": "str (local filename)"
+        }
+      }
+    ]
+  }
+}

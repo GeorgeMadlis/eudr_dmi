@@ -1,0 +1,49 @@
+{
+  "server_id": "hansen_gfc_mcp",
+  "family": "Hansen_GFC",
+  "server_type": "eo_tiles_http",
+  "description": "MCP server for Hansen Global Forest Change (GFC) 2000–2024 v1.12. Exposes tools to list and download 10x10 degree GeoTIFF tiles for layers: treecover2000, loss, lossyear, gain, datamask.",
+  "source_catalogue_example": {
+    "dataset_id": "googleapis_global_forest_change",
+    "primary_url": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html",
+    "provider": NaN
+  },
+  "tiling_scheme": {
+    "crs": "EPSG:4326",
+    "tile_size_degrees": 10,
+    "tile_grid": "global_lon_lat"
+  },
+  "layers": [
+    "treecover2000",
+    "loss",
+    "lossyear",
+    "gain",
+    "datamask"
+  ],
+  "storage": {
+    "type": "https",
+    "base_url": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/",
+    "pattern": "{layer}_{tile_id}.tif"
+  },
+  "tools": [
+    {
+      "name": "list_tiles",
+      "description": "List available tiles (by 10x10 degree indices) and their URLs.",
+      "arguments": {
+        "min_lon": "float",
+        "min_lat": "float",
+        "max_lon": "float",
+        "max_lat": "float",
+        "layer": "str (one of the configured layers)"
+      }
+    },
+    {
+      "name": "download_tile",
+      "description": "Download a single tile given its tile_id and layer.",
+      "arguments": {
+        "tile_id": "str",
+        "layer": "str"
+      }
+    }
+  ]
+}
