@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eudr_dmi/schemas/dependencies_mirror_metadata.schema.json",
+  "title": "Dependency definitions mirror metadata",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["status", "needs_update", "run", "sources"],
+  "properties": {
+    "status": {"type": "string", "enum": ["complete", "partial"]},
+    "needs_update": {"type": "boolean"},
+    "run": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["run_date"],
+      "properties": {
+        "run_date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "url", "stored_path", "sha256", "ok"],
+        "properties": {
+          "id": {"type": "string"},
+          "url": {"type": "string"},
+          "stored_path": {"type": ["string", "null"]},
+          "sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+          "ok": {"type": "boolean"},
+          "error": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "reason": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

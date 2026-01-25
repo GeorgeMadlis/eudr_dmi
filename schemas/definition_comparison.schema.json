@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eudr_dmi/schemas/definition_comparison.schema.json",
+  "title": "Definition consistency / interpretability constraint (scaffold)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["control_id", "control_version", "inputs", "extracted", "comparison"],
+  "properties": {
+    "control_id": {"type": "string", "const": "definition_consistency"},
+    "control_version": {"type": "string", "minLength": 1},
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["regulation_snapshot_path", "dependency_source_id", "dependency_run_path"],
+      "properties": {
+        "regulation_snapshot_path": {"type": "string", "minLength": 1},
+        "dependency_source_id": {"type": "string", "minLength": 1},
+        "dependency_run_path": {"type": "string", "minLength": 1}
+      }
+    },
+    "extracted": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eudr_definition_elements", "dependency_definition_elements"],
+      "properties": {
+        "eudr_definition_elements": {"type": "array"},
+        "dependency_definition_elements": {"type": "array"}
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mismatches", "gaps", "impact_statement", "outcome"],
+      "properties": {
+        "mismatches": {"type": "array"},
+        "gaps": {"type": "array"},
+        "impact_statement": {"type": "string"},
+        "outcome": {"type": "string", "enum": ["UNKNOWN", "PASS", "FAIL", "UNDETERMINED"]}
+      }
+    }
+  }
+}

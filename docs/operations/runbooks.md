@@ -17,21 +17,7 @@ Notes:
 | Upstream access | Ability to reach required upstream entrypoints (datasets/services; may include adopted components from `geospatial_dmi`). | [docs/architecture/dependency_register.md](../architecture/dependency_register.md) | Access confirmed; credentials and network prerequisites satisfied. |
 | Regulation snapshot current | Regulation mirror has a recent run folder; LSU/watch is not stale. | [docs/regulation/sources.md](../regulation/sources.md) | Latest run folder exists; `manifest.sha256` verifies; `needs_update` is understood/handled. |
 | Dependency pinning | Dataset/service versions pinned as required. | `TODO_CONFIG_FILE_OR_ENV_VARS` | Versions/IDs recorded; reruns are feasible. |
-<<<<<<< HEAD:docs/30_runbook.md
 | Workspace cleanliness | Evidence root writable; no conflicting bundle id. | `audit/evidence/` (or `$EUDR_DMI_EVIDENCE_ROOT`) | Evidence root exists and is writable; selected `<bundle_root>` is new/empty. |
-=======
-| Workspace cleanliness | Output location writable; no conflicting bundle id. | `<audit_root>` (via `EUDR_DMI_AUDIT_ROOT`) | Target path exists and is empty or uses a new bundle root. |
-
-## Environment variables
-
-The runners use environment-driven configuration for filesystem roots. Defaults are chosen to work when running from the repository root and when installed editable.
-
-| Variable | Purpose | Default |
-|---|---|---|
-| `EUDR_DMI_AUDIT_ROOT` | Base directory for audit material (including regulation mirrors). Absolute path, or repo-relative path. | `<repo>/audit` |
-| `EUDR_DMI_REGULATION_ROOT` | Directory containing the mirrored regulation snapshot files used as sources. Absolute path, or relative to `EUDR_DMI_AUDIT_ROOT`. | `<audit_root>/regulation/eudr_2023_1115` |
-| `EUDR_DMI_EVIDENCE_ROOT` | Output root for evidence bundles. Absolute path, or repo-relative path. | `<audit_root>/evidence` |
->>>>>>> 54a0a41 (Adopt geospatial_dmi snapshot + demos):docs/operations/runbooks.md
 
 ## Execution Steps (Placeholders)
 1. Prepare environment
@@ -51,19 +37,11 @@ The runners use environment-driven configuration for filesystem roots. Defaults 
 
 | Output | Location | Acceptance criteria |
 |---|---|---|
-<<<<<<< HEAD:docs/30_runbook.md
 | Evidence bundle directory | `<root>/<YYYY-MM-DD>/<bundle_id>/` | Bundle contains all required files per [20_evidence_bundle_spec.md](20_evidence_bundle_spec.md). |
 | Summary outcome | `<bundle_root>/outputs/summary.json` | `status` present and valid; evidence references resolve. |
 | Provenance record | `<bundle_root>/provenance/provenance.json` | Contains required provenance fields for each dependency used. |
 | Manifest + hashes | `<bundle_root>/manifest.json`, `<bundle_root>/hashes.sha256` | Parseable manifest; all hashes match on recomputation. |
 | Run log | `<bundle_root>/logs/run.log` | Contains run start/end, operator ref, and any warnings/errors. |
-=======
-| Evidence bundle directory | `<evidence_root>/<YYYY-MM-DD>/<bundle_id>/` | Bundle contains all required files per [docs/architecture/evidence_bundle_spec.md](../architecture/evidence_bundle_spec.md). |
-| Summary outcome | `outputs/summary.json` | `status` present and valid; evidence references resolve. |
-| Provenance record | `provenance/provenance.json` | Contains required provenance fields for each dependency used. |
-| Manifest + hashes | `manifest.json`, `hashes.sha256` | Parseable manifest; all hashes match on recomputation. |
-| Run log | `logs/run.log` | Contains run start/end, operator ref, and any warnings/errors. |
->>>>>>> 54a0a41 (Adopt geospatial_dmi snapshot + demos):docs/operations/runbooks.md
 
 ## Verification Steps
 

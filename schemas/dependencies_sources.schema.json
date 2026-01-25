@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eudr_dmi/schemas/dependencies_sources.schema.json",
+  "title": "Dependency definitions sources registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "generated_at", "sources"],
+  "properties": {
+    "version": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "null"},
+    "sources": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/source"}
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "url",
+        "source_class",
+        "content_type_expected",
+        "server_local_path"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "minLength": 1},
+        "source_class": {"const": "DATA"},
+        "content_type_expected": {"type": "string", "minLength": 1},
+        "server_local_path": {"type": "string", "minLength": 1},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

@@ -45,17 +45,10 @@ Outcomes are expressed as one of: PASS, FAIL, UNDETERMINED.
 - Confirm any UNDETERMINED outcome includes explicit reasons and references to impacted controls.
 
 ### Where to Find It
-<<<<<<< HEAD:docs/00_scope_and_assurance.md
 - Bundle root: `<root>/<YYYY-MM-DD>/<bundle_id>/` (default `<root>`: `audit/evidence/`; override: `EUDR_DMI_EVIDENCE_ROOT=/Users/server/audit/eudr_dmi/evidence`)
 - Outcome summary: `<bundle_root>/outputs/summary.json`
 - Manifest and hashes: `<bundle_root>/manifest.json`, `<bundle_root>/hashes.sha256`
 - Spine mapping: [10_policy_to_evidence_spine.md](10_policy_to_evidence_spine.md)
-=======
-- Evidence bundle outcomes: `outputs/summary.json` inside the bundle root.
-- Manifest and hashes: `manifest.json` and `hashes.sha256` inside the bundle root.
-- Spine mapping: [docs/regulation/policy_to_evidence_spine.md](regulation/policy_to_evidence_spine.md)
-- Regulation mirroring: [docs/regulation/sources.md](regulation/sources.md)
->>>>>>> 54a0a41 (Adopt geospatial_dmi snapshot + demos):docs/overview.md
 
 ## Assumptions and Limitations
 The following must be explicit and treated as audit-relevant constraints:

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/eudr_dmi/schemas/dependency_run_metadata.schema.json",
+  "title": "Dependency definition run metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_id",
+    "url",
+    "content_type_expected",
+    "fetch_status",
+    "http_status",
+    "artifact_sha256",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "minLength": 1},
+    "source_id": {"type": "string", "minLength": 1},
+    "url": {"type": "string", "minLength": 1},
+    "content_type_expected": {"type": "string", "minLength": 1},
+    "fetch_status": {"type": "string", "enum": ["ok", "failed"]},
+    "http_status": {"type": ["integer", "null"], "minimum": 100, "maximum": 599},
+    "artifact_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "notes": {"type": "string"}
+  }
+}
