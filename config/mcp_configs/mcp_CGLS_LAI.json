@@ -1,0 +1,29 @@
+{
+  "server_id": "cgls lai_http_mcp",
+  "family": "CGLS LAI",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'CGLS LAI'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "copernicus_vegetation_—_copernicus_land_monitoring_",
+    "primary_url": "https://land.copernicus.eu/global/products/lai",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://land.copernicus.eu/global/products/lai"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

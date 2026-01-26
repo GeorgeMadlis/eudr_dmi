@@ -1,0 +1,30 @@
+{
+  "server_id": "torchgeo_http_mcp",
+  "family": "TorchGeo",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'TorchGeo'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "readthedocs_introduction_to_geospatial_data_—_torchg",
+    "primary_url": "https://torchgeo.readthedocs.io/en/stable/tutorials/geospatial.html",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://torchgeo.readthedocs.io/en/stable/api/datasets.html#module-torchgeo.datasets",
+    "https://torchgeo.readthedocs.io/en/stable/tutorials/geospatial.html"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

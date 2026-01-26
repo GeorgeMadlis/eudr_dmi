@@ -1,0 +1,4 @@
+# Development/test tooling for this repository.
+
+pytest
+pytest-cov

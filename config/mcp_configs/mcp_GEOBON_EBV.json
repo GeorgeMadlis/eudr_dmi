@@ -1,0 +1,29 @@
+{
+  "server_id": "geobon_ebv_http_mcp",
+  "family": "GEOBON_EBV",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'GEOBON_EBV'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "geobon_ebv_portal",
+    "primary_url": "https://portal.geobon.org/",
+    "provider": "Group on Earth Observations Biodiversity Observation Network (GEO BON)"
+  },
+  "known_urls": [
+    "https://portal.geobon.org/"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

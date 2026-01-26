@@ -1,0 +1,34 @@
+{
+  "server_id": "our world in data_http_mcp",
+  "family": "Our World in Data",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'Our World in Data'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "global-change-data-lab_global_change_data_lab",
+    "primary_url": "https://global-change-data-lab.org/",
+    "provider": NaN
+  },
+  "known_urls": [
+    "https://global-change-data-lab.org/",
+    "https://ourworldindata.org/",
+    "https://ourworldindata.org/funding",
+    "https://ourworldindata.org/grapher/population-with-un-projections",
+    "https://ourworldindata.org/nuclear-energy",
+    "https://ourworldindata.org/search"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

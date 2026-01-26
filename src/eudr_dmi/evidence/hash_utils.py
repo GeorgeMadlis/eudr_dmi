@@ -18,12 +18,14 @@ def write_manifest_sha256(bundle_dir: str | Path, exclude: set[str] | None = Non
     exclude_set = {"manifest.sha256"} if exclude is None else set(exclude)
 
     entries: list[tuple[str, str]] = []
-    for child in bundle_path.iterdir():
+    for child in bundle_path.rglob("*"):
         if not child.is_file():
             continue
-        if child.name in exclude_set:
+
+        rel_name = child.relative_to(bundle_path).as_posix()
+        if rel_name in exclude_set or child.name in exclude_set:
             continue
-        rel_name = child.name
+
         entries.append((rel_name, sha256_file(child)))
 
     entries.sort(key=lambda t: t[0])

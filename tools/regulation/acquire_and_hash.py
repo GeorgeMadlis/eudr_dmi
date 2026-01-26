@@ -11,8 +11,8 @@ from pathlib import Path
 from eudr_dmi.evidence.hash_utils import sha256_file
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-REGISTRY_JSON = REPO_ROOT / "docs" / "regulation_sources.json"
-REGISTRY_MD = REPO_ROOT / "docs" / "regulation_sources.md"
+REGISTRY_JSON = REPO_ROOT / "docs" / "regulation" / "sources.json"
+REGISTRY_MD = REPO_ROOT / "docs" / "regulation" / "sources.md"
 
 SERVER_AUDIT_ROOT = Path("/Users/server/audit/eudr_dmi")
 SERVER_REG_EUDR_DIR = SERVER_AUDIT_ROOT / "regulation" / "eudr_2023_1115"

@@ -22,7 +22,7 @@ Boundary:
 | Deterministic evidence generation and verification steps. | Non-testable narrative claims. |
 
 ## Evidence Outputs (File Names + Semantics)
-Expected artifacts inside the evidence bundle (see [docs/20_evidence_bundle_spec.md](../../20_evidence_bundle_spec.md)).
+Expected artifacts inside the evidence bundle (see [docs/architecture/evidence_bundle_spec.md](../../architecture/evidence_bundle_spec.md)).
 
 | Artifact | Semantics | Acceptance criteria |
 |---|---|---|

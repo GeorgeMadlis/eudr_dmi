@@ -1,0 +1,27 @@
+dataset_family,n_datasets,n_providers,example_primary_url
+CGLS LAI,1,1,https://land.copernicus.eu/global/products/lai
+COPERNICUS_LANDCOVER,1,0,https://land.copernicus.eu/en/products/global-dynamic-land-cover
+Copernicus Climate Data Store (CDS),3,1,https://cds.climate.copernicus.eu/
+Copernicus Global Land Service (CGLS),1,1,https://land.copernicus.eu/global/
+Copernicus Imagery & In Situ,1,1,https://land.copernicus.eu/imagery-in-situ
+Copernicus_Other,2,2,https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_Landcover_100m_Proba-V-C3_Global#description
+DYNAMIC_WORLD,1,0,https://dynamicworld.app/
+Dynamic World,1,1,https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1
+ERA5,1,1,https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5
+FAO_FAOSTAT,1,0,https://www.fao.org/faostat/en/
+FAO_Hand-in-Hand_Geospatial,1,0,https://data.apps.fao.org/map/catalog/srv/eng/catalog.search
+GBIF,1,1,https://www.gbif.org/
+GEOBON EBV Headline Indicators,1,1,https://www.cbd.int/doc/c/815b/9afa/941a22fc6c8760acbf3ab6a3/geobon-headline-indicators-en.pdf
+GEOBON EBVs,1,1,https://portal.geobon.org/home
+GEOBON_EBV,1,0,https://portal.geobon.org/
+GFW_Forest_Carbon,2,1,https://datasets.wri.org/datasets/gfw-forest-carbon-gross-removals
+Google Satellite Embeddings,1,1,https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL
+Google_Solar,1,0,https://developers.google.com/maps/documentation/solar/overview
+Hansen_GFC,2,1,https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html
+Maa-amet Geoportaal,1,1,https://geoportaal.maaamet.ee/est/teenused/wms-wfs-wcs-teenused-p65.html
+Other_or_unsorted,9,8,http://euroveg.org/eva-database-re-survey-europe
+Our World in Data,6,2,https://global-change-data-lab.org/
+Resilient_Planet_Data,1,1,https://resilient-planet-data.org/
+TorchGeo,2,1,https://torchgeo.readthedocs.io/en/stable/tutorials/geospatial.html
+WDPA_PROTECTED_AREAS,1,0,https://www.protectedplanet.net/
+WorldClim,3,1,https://www.worldclim.org/data/help.html

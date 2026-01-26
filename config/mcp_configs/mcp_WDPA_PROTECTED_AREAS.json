@@ -1,0 +1,29 @@
+{
+  "server_id": "wdpa_protected_areas_http_mcp",
+  "family": "WDPA_PROTECTED_AREAS",
+  "server_type": "http_generic",
+  "description": "Generic HTTP-based MCP server for dataset family 'WDPA_PROTECTED_AREAS'. Exposes tools to list and download known dataset URLs. Refine this config later with family-specific logic.",
+  "source_catalogue_example": {
+    "dataset_id": "wdpa_protected_areas",
+    "primary_url": "https://www.protectedplanet.net/",
+    "provider": "UNEP-WCMC / IUCN"
+  },
+  "known_urls": [
+    "https://www.protectedplanet.net/"
+  ],
+  "tools": [
+    {
+      "name": "list_known_urls",
+      "description": "Return the list of known dataset URLs for this family.",
+      "arguments": {}
+    },
+    {
+      "name": "download_url",
+      "description": "Download data from a given URL into local storage.",
+      "arguments": {
+        "url": "str",
+        "target": "str (local filename)"
+      }
+    }
+  ]
+}

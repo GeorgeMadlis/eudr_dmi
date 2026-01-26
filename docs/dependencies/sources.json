@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "generated_at": null,
+  "sources": [
+    {
+      "id": "hansen_gfc_definitions",
+      "title": "Hansen GFC 2024 v1.12 – definitions/download page",
+      "url": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html",
+      "source_class": "DATA",
+      "content_type_expected": "text/html",
+      "server_local_path": "/Users/server/audit/eudr_dmi/dependencies/hansen_gfc_definitions",
+      "notes": "Mirror this page; used for comparing Hansen forest-loss semantics to EUDR definitions."
+    }
+  ]
+}

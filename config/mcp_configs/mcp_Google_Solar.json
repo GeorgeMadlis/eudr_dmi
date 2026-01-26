@@ -1,0 +1,58 @@
+{
+  "server_id": "google_solar_mcp",
+  "family": "Google_Solar",
+  "server_type": "google_solar_rest",
+  "description": "MCP server for Google Solar API. Provides solar potential data including rooftop analysis, solar panel configurations, and energy production estimates.",
+  "source_catalogue_example": {
+    "dataset_id": "google_solar_api",
+    "primary_url": "https://developers.google.com/maps/documentation/solar/overview",
+    "provider": "Google"
+  },
+  "api": {
+    "base_url": "https://solar.googleapis.com/v1",
+    "documentation": "https://developers.google.com/maps/documentation/solar/overview"
+  },
+  "required_auth": {
+    "method": "api_key",
+    "env_var": "GOOGLE_MAPS_API_KEY",
+    "alternative_methods": [
+      "oauth2",
+      "service_account"
+    ],
+    "alternative_env_vars": [
+      "GOOGLE_APPLICATION_CREDENTIALS"
+    ]
+  },
+  "registration_required": true,
+  "registration_url": "https://console.cloud.google.com/apis/library/solar.googleapis.com",
+  "authentication_method": "api_key",
+  "auth_env_hints": "GOOGLE_MAPS_API_KEY, GOOGLE_APPLICATION_CREDENTIALS",
+  "tools": [
+    {
+      "name": "get_building_insights",
+      "description": "Get solar potential information for a specific location.",
+      "arguments": {
+        "location": "dict (latitude, longitude)",
+        "required_quality": "str (optional, e.g. 'HIGH', 'MEDIUM', 'LOW')"
+      }
+    },
+    {
+      "name": "get_data_layers",
+      "description": "Get available solar data layers for a location.",
+      "arguments": {
+        "location": "dict (latitude, longitude)",
+        "radius_meters": "float",
+        "view": "str (e.g. 'FULL_LAYERS', 'DSM_LAYER', 'IMAGERY_LAYER')"
+      }
+    },
+    {
+      "name": "get_geotiff",
+      "description": "Download GeoTIFF data for solar analysis.",
+      "arguments": {
+        "location": "dict (latitude, longitude)",
+        "radius_meters": "float",
+        "layer_type": "str (e.g. 'DSM', 'RGB', 'MASK', 'ANNUAL_FLUX')"
+      }
+    }
+  ]
+}

@@ -63,7 +63,7 @@ List any assumptions introduced or relied upon, plus risks and mitigations.
 
 ## Checklist (audit PR gates)
 - [ ] Article doc updated under `docs/articles/art_XX/` (if applicable)
-- [ ] Evidence governance updated under `docs/evidence_governance/` (if applicable)
+- [ ] Evidence governance updated (see `docs/architecture/evidence_contract.md` and `docs/operations/inspection_checklist.md`) (if applicable)
 - [ ] Policy-to-evidence spine impact noted (if applicable)
 - [ ] Executable code produces declared evidence artifacts (paths match section 2)
 - [ ] Tests updated/added and passing

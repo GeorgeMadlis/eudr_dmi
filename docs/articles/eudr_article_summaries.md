@@ -2,7 +2,7 @@
 
 These summaries are short, non-verbatim orientation notes for implementers and auditors.
 
-Authoritative text is the hashed EUR-Lex artefacts recorded in [docs/regulation_sources.md](../regulation_sources.md) and [docs/regulation_sources.json](../regulation_sources.json) once acquired.
+Authoritative text is the hashed EUR-Lex artefacts recorded in [docs/regulation/sources.md](../regulation/sources.md) and [docs/regulation/sources.json](../regulation/sources.json) once acquired.
 
 ## Article 9 — Information requirements
 - Focus: what information must be collected and retained to demonstrate compliant sourcing.
