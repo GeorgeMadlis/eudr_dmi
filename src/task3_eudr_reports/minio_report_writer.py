@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import io
 import json
 import os
-import io
+import re
 from dataclasses import dataclass
 from typing import Any
 
@@ -35,7 +36,74 @@ class MinioConfig:
     bucket: str
 
 
-def load_minio_config_from_env() -> MinioConfig:
+def _maybe_load_minio_env_from_file(path: str) -> None:
+    """Populate missing MINIO_* vars from a local credentials summary file.
+
+    Supports common formats:
+      - KEY=VALUE
+      - export KEY=VALUE
+      - KEY: VALUE
+
+    Never overwrites already-set environment variables.
+    """
+
+    try:
+        text = open(path, encoding="utf-8", errors="replace").read()
+    except OSError:
+        return
+
+    wanted = {
+        "MINIO_ENDPOINT",
+        "MINIO_ACCESS_KEY",
+        "MINIO_SECRET_KEY",
+        "MINIO_SECURE",
+        "EUDR_REPORTS_BUCKET",
+    }
+
+    def parse_value(raw: str) -> str:
+        v = raw.strip()
+        if len(v) >= 2 and ((v[0] == v[-1] == "\"") or (v[0] == v[-1] == "'")):
+            v = v[1:-1]
+        return v.strip()
+
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+
+        key = None
+        value = None
+
+        m = re.match(r"^(?:export\s+)?([A-Z0-9_]+)\s*=\s*(.*)$", line)
+        if m:
+            key = m.group(1)
+            value = m.group(2)
+        else:
+            m = re.match(r"^([A-Z0-9_]+)\s*:\s*(.*)$", line)
+            if m:
+                key = m.group(1)
+                value = m.group(2)
+
+        if not key or value is None:
+            continue
+        if key not in wanted:
+            continue
+        if os.getenv(key):
+            continue
+
+        parsed = parse_value(value)
+        if parsed:
+            os.environ[key] = parsed
+
+
+def load_minio_config_from_env(*, credentials_file: str | None = None) -> MinioConfig:
+    if credentials_file:
+        _maybe_load_minio_env_from_file(credentials_file)
+
+    env_file = os.getenv("EUDR_MINIO_CREDENTIALS_FILE")
+    if env_file:
+        _maybe_load_minio_env_from_file(env_file)
+
     endpoint = _env("MINIO_ENDPOINT")
     access_key = _env("MINIO_ACCESS_KEY")
     secret_key = _env("MINIO_SECRET_KEY")

@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "id": "hansen_gfc_definitions",
+      "title": "Hansen GFC 2024 v1.12 – definitions/download page",
+      "url": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2024-v1.12/download.html",
+      "expected_content_type": "text/html",
+      "server_path": "/Users/server/audit/eudr_dmi/dependencies/hansen_gfc_definitions",
+      "purpose": "Authoritative dataset definitions/semantics used to interpret Hansen GFC layers (loss, cover, etc.) in EUDR-oriented checks and definition-comparison controls.",
+      "used_by": [
+        "demo_mcp_servers.py",
+        "src/mcp_servers/hansen_gfc_example.py"
+      ]
+    },
+    {
+      "id": "maa-amet/forest/v1",
+      "title": "Maa-amet forest layer reference (v1)",
+      "url": "https://gsavalik.envir.ee/geoserver/wfs",
+      "expected_content_type": "application/xml",
+      "server_path": "/Users/server/audit/eudr_dmi/dependencies/maa_amet_forest_v1",
+      "purpose": "Estonian national forest-presence reference used as an external cross-check input in the Maa-amet forest-area comparison method.",
+      "used_by": [
+        "src/eudr_dmi/methods/maa_amet_crosscheck.py",
+        "src/task3_eudr_reports/run_eudr_report_to_minio.py",
+        "tests/test_methods_maa_amet_crosscheck.py"
+      ]
+    }
+  ]
+}

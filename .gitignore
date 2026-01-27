@@ -21,3 +21,12 @@ build/
 
 # Local audit evidence bundles (never commit)
 audit/
+
+# Generated docs/bundles (never commit)
+docs/html/
+docs/site/
+docs/site_bundle/
+docs/site_bundle.zip
+docs/site_bundle.zip.sha256
+
+digest.txt
