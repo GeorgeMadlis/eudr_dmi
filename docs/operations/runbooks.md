@@ -71,3 +71,22 @@ Acceptance criteria:
 | Hash mismatch | File modified post-generation or non-deterministic output. | Compare file timestamps; rerun equivalence. | Regenerate bundle; enforce determinism rules; lock formatting and ordering. |
 | UNDETERMINED outcome | Conflicts across sources or missing upstream coverage. | `outputs/summary.json` reasons; method decision artifacts. | Apply uncertainty/conflict policy; record applied decisions; rerun if data becomes available. |
 | Runtime failure | Environment/config error. | `logs/run.log`; `TODO_CONFIG` | Repair environment, update runbook, and record change if procedure changed. |
+
+## Docs Site Bundle (Portable HTML + Zip)
+
+This creates a shareable, portable documentation bundle folder (`docs/site_bundle/`) and a deterministic zip (`docs/site_bundle.zip`).
+
+Command:
+
+```sh
+source .venv/bin/activate && bash scripts/export_site_bundle.sh
+```
+
+Expected outputs:
+- `docs/site_bundle/`
+- `docs/site_bundle.zip`
+- `docs/site_bundle.zip.sha256`
+
+Prereqs / invariants:
+- Repo-local `proposals/` directory exists (can be empty).
+- DAO machine descriptors exist: `docs/dao/machine/dao_stakeholders/view.yaml` and `docs/dao/machine/dao_dev/view.yaml`.

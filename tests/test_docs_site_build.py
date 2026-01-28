@@ -84,3 +84,14 @@ def test_docs_site_build_smoke(tmp_path: Path) -> None:
     assert (out_root / "articles" / "article_11.html").exists()
     assert (out_root / "dependencies" / "index.html").exists()
     assert (out_root / "aoi_reports" / "index.html").exists()
+
+    assert (out_root / "dao_stakeholders" / "index.html").exists()
+    assert (out_root / "dao_stakeholders" / "how_to_participate.html").exists()
+    assert (out_root / "dao_stakeholders" / "new_proposal.html").exists()
+    assert (out_root / "dao_stakeholders" / "proposals" / "index.html").exists()
+
+    assert (out_root / "dao_dev" / "index.html").exists()
+    assert (out_root / "dao_dev" / "gates.html").exists()
+    assert (out_root / "dao_dev" / "contribution_contract.html").exists()
+    assert (out_root / "dao_dev" / "new_proposal.html").exists()
+    assert (out_root / "dao_dev" / "proposals" / "index.html").exists()

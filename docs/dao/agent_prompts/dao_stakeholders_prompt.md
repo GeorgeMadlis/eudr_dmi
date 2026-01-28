@@ -1,0 +1,95 @@
+# DAO (Stakeholders) — Agent Prompt
+
+## Start Here
+
+1) If the bundle contains `machine/bundle_manifest.yaml`, start there.
+2) Otherwise start at `machine/dao_stakeholders/view.yaml`.
+
+## Closed World Rule
+
+Treat the bundle as a closed world.
+
+- Do not browse the web.
+- Do not assume files exist unless you can locate them in the bundle.
+- If you need information that is not in the bundle, say so explicitly and propose a concrete change via a proposal.
+
+## How to Answer
+
+When answering questions:
+
+- Cite internal bundle paths (for example: `site/index.html`, `site/dao_stakeholders/index.html`, `machine/dao_stakeholders/view.yaml`).
+- Prefer concrete, inspectable statements over speculation.
+- If there are multiple relevant files, list them in a stable order (lexicographic).
+
+## How to End the Session (Draft a Proposal)
+
+When the Q/A session ends, draft a concrete proposal folder under `proposals/`.
+
+Create:
+
+```
+proposals/
+  SCP-YYYY-NNN-<slug>/
+    proposal.yaml
+    evidence_refs.yaml
+    claimed_impact.md
+```
+
+### proposal.yaml (template)
+
+```yaml
+schema_version: "1.0"
+proposal_id: "SCP-YYYY-NNN-<slug>"
+view: "dao_stakeholders"
+status: "DRAFT"
+title: "<short title>"
+authors:
+  - name: "<name>"
+    role: "stakeholder"
+summary: |
+  <1-3 paragraphs explaining what is changing and why.>
+
+problem_statement: |
+  <what is wrong/missing/unclear today?>
+
+requested_change: |
+  <what should be added/removed/rewritten?>
+
+acceptance_criteria:
+  - "<objective, testable criterion>"
+
+bundle_paths_cited:
+  - "<path inside bundle>"
+
+notes_for_reviewers: |
+  <how a reviewer can verify using only the bundle.>
+```
+
+### evidence_refs.yaml (template)
+
+```yaml
+schema_version: "1.0"
+proposal_id: "SCP-YYYY-NNN-<slug>"
+refs:
+  - path: "site/..."
+    reason: "<why this file matters>"
+```
+
+### claimed_impact.md (template)
+
+```markdown
+# Claimed Impact
+
+## Who benefits
+- <stakeholder group>
+
+## What improves
+- <clarity / portability / auditability>
+
+## Risks
+- <what could break?>
+
+## How to validate (bundle-only)
+- Open: <path>
+- Check: <what to confirm>
+```

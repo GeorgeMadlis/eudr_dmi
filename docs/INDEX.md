@@ -16,6 +16,7 @@
 1. [docs/architecture/method_notes_and_decisions.md](architecture/method_notes_and_decisions.md)
 1. [docs/operations/runbooks.md](operations/runbooks.md)
 1. [docs/operations/inspection_checklist.md](operations/inspection_checklist.md)
+1. (Optional) Portable docs site bundle: see the “Docs Site Bundle (Portable HTML + Zip)” section in [docs/operations/runbooks.md](operations/runbooks.md)
 1. [docs/architecture/risk_register.md](architecture/risk_register.md)
 1. [docs/architecture/change_control.md](architecture/change_control.md)
 1. [docs/glossary.md](glossary.md)

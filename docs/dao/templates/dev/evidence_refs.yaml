@@ -1,0 +1,11 @@
+schema_version: "1.0"
+
+# Required
+scp_id: "SCP-YYYY-NNN-<slug>"
+
+evidence:
+  - id: "E1"
+    kind: "repo_path"  # repo_path | bundle_path | external
+    ref: "<e.g. audit/proposals/SCP-YYYY-NNN-<slug>/README.md>"
+    sha256: ""  # Optional: pin a specific file version
+    note: "<Why this evidence matters / how to reproduce>"

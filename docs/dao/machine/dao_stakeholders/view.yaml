@@ -1,0 +1,15 @@
+schema_version: "1.0"
+view_id: "dao_stakeholders"
+title: "DAO (Stakeholders)"
+
+entrypoints:
+  prompt: "agent_prompts/dao_stakeholders_prompt.md"
+  home: "site/dao_stakeholders/index.html"
+  proposals: "site/dao_stakeholders/proposals/index.html"
+
+machine_files:
+  proposals_index: "machine/dao_stakeholders/proposals_index.yaml"
+
+notes: |
+  Packaged into the audit documentation bundle.
+  All paths are relative to the bundle root.

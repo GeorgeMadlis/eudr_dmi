@@ -1,0 +1,36 @@
+schema_version: "1.0"
+
+# Required
+scp_id: "SCP-YYYY-NNN-<slug>"
+proposer:
+  name: "<name>"
+  contact: "<email or handle>"
+affected_controls:
+  - "<obligation/control reference>"
+claim: |
+  <One clear sentence: what should change?>
+
+# Developer-specific: define gates and where reproducible artifacts live.
+gates:
+  - name: "ruff"
+    command: "python -m ruff check"
+    expected: "pass"
+  - name: "pytest"
+    command: "pytest"
+    expected: "pass"
+  - name: "portable_bundle"
+    command: "CLEAN=1 bash scripts/build_site_bundle.sh"
+    expected: "link_check.json status PASS; manifest.sha256 updated"
+
+reproducible_artifacts:
+  required_root: "audit/proposals/SCP-YYYY-NNN-<slug>/"
+  required_files:
+    - "audit/proposals/SCP-YYYY-NNN-<slug>/README.md"
+
+spine_or_adoption_log_changes:
+  required: false
+  paths:
+    - "<only if needed: adopt/... or adopted/... or docs/regulation/...>"
+
+notes: |
+  <Optional: implementation notes>

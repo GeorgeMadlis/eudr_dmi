@@ -27,6 +27,25 @@ Notes:
   - `TODO_COMMAND_TO_GENERATE_EVIDENCE_BUNDLE`
   - `TODO_COMMAND_TO_VERIFY_MANIFEST_AND_HASHES`
 
+## Portable Docs Site Bundle (HTML + Zip)
+
+This repo can produce a portable, shareable HTML documentation bundle under `docs/site_bundle/` and a deterministic zip at `docs/site_bundle.zip`.
+
+Create/recreate the bundle folder and zip:
+
+```sh
+source .venv/bin/activate && bash scripts/export_site_bundle.sh
+```
+
+Outputs:
+- `docs/site_bundle/` (portable folder bundle)
+- `docs/site_bundle.zip` (deterministic zip)
+- `docs/site_bundle.zip.sha256` (sha256 for the zip)
+
+Notes:
+- The bundle build expects the repo-local `proposals/` folder to exist (it may be empty).
+- DAO agent upload requires machine descriptors under `docs/dao/machine/.../view.yaml`.
+
 ## Running method-level tests (geospatial dependencies)
 Some method tests exercise geospatial functionality (e.g., raster masking) and require explicit
 Python packages.

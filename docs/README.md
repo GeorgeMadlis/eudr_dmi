@@ -24,6 +24,18 @@ Boundaries:
 - Operations (runbooks/checklists): [docs/operations/README.md](operations/README.md)
 - Articles (inspection notes): [docs/articles/eudr_article_summaries.md](articles/eudr_article_summaries.md)
 
+## Portable Docs Site Bundle (HTML + Zip)
+
+This repo can produce a portable HTML documentation bundle (`docs/site_bundle/`) and a deterministic zip (`docs/site_bundle.zip`) for sharing.
+
+Command (from repo root):
+
+```sh
+source .venv/bin/activate && bash scripts/export_site_bundle.sh
+```
+
+Operator notes and prerequisites live in: [docs/operations/runbooks.md](operations/runbooks.md)
+
 ## Provenance & ownership
 Adopted from `geospatial_dmi` documentation patterns; owned here; divergence expected.
 

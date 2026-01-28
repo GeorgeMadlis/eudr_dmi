@@ -60,6 +60,100 @@ if [[ -f "docs/regulation/policy_to_evidence_spine.md" ]]; then
   cp -f "docs/regulation/policy_to_evidence_spine.md" "$BUNDLE_ROOT/regulation/policy_to_evidence_spine.md"
 fi
 
+echo "[3.3/6] Copy view docs into bundle (task/agentic/digital twin)"
+
+REQUIRED_VIEW_DOCS=(
+  "docs/views/task_view.md"
+  "docs/views/agentic_view.md"
+  "docs/views/digital_twin_view.md"
+)
+
+MISSING_VIEW_DOCS=()
+for f in "${REQUIRED_VIEW_DOCS[@]}"; do
+  if [[ ! -f "$f" ]]; then
+    MISSING_VIEW_DOCS+=("$f")
+  fi
+done
+
+if (( ${#MISSING_VIEW_DOCS[@]} > 0 )); then
+  echo "ERROR: required view docs missing:" >&2
+  for f in "${MISSING_VIEW_DOCS[@]}"; do
+    echo "  - $f" >&2
+  done
+  exit 1
+fi
+
+mkdir -p "$BUNDLE_ROOT/views"
+for src in "${REQUIRED_VIEW_DOCS[@]}"; do
+  cp -f "$src" "$BUNDLE_ROOT/views/$(basename "$src")"
+done
+
+echo "[3.4/6] Generate DAO proposal indexes (deterministic)"
+python tools/site/build_dao_indexes.py
+
+echo "[3.5/6] Copy DAO machine view descriptors into bundle (required for agent upload)"
+
+REQUIRED_DAO_FILES=(
+  "docs/dao/machine/dao_stakeholders/view.yaml"
+  "docs/dao/machine/dao_stakeholders/proposals_index.yaml"
+  "docs/dao/machine/dao_dev/view.yaml"
+  "docs/dao/machine/dao_dev/proposals_index.yaml"
+)
+
+MISSING_DAO_FILES=()
+for f in "${REQUIRED_DAO_FILES[@]}"; do
+  if [[ ! -f "$f" ]]; then
+    MISSING_DAO_FILES+=("$f")
+  fi
+done
+
+if (( ${#MISSING_DAO_FILES[@]} > 0 )); then
+  echo "ERROR: required DAO machine files missing:" >&2
+  for f in "${MISSING_DAO_FILES[@]}"; do
+    echo "  - $f" >&2
+  done
+  echo "Bundle must be complete for agent upload." >&2
+  exit 1
+fi
+
+mkdir -p "$BUNDLE_ROOT/machine"
+
+# Copy while preserving folder structure under docs/dao/machine/...
+for src in "${REQUIRED_DAO_FILES[@]}"; do
+  rel="${src#docs/dao/machine/}"
+  dest="$BUNDLE_ROOT/machine/$rel"
+  mkdir -p "$(dirname "$dest")"
+  cp -f "$src" "$dest"
+done
+
+echo "[3.6/6] Copy DAO agent prompts into bundle (required for agent upload)"
+
+REQUIRED_AGENT_PROMPTS=(
+  "docs/dao/agent_prompts/dao_stakeholders_prompt.md"
+  "docs/dao/agent_prompts/dao_dev_prompt.md"
+)
+
+MISSING_AGENT_PROMPTS=()
+for f in "${REQUIRED_AGENT_PROMPTS[@]}"; do
+  if [[ ! -f "$f" ]]; then
+    MISSING_AGENT_PROMPTS+=("$f")
+  fi
+done
+
+if (( ${#MISSING_AGENT_PROMPTS[@]} > 0 )); then
+  echo "ERROR: required agent prompt files missing:" >&2
+  for f in "${MISSING_AGENT_PROMPTS[@]}"; do
+    echo "  - $f" >&2
+  done
+  echo "Bundle must be complete for agent upload." >&2
+  exit 1
+fi
+
+mkdir -p "$BUNDLE_ROOT/agent_prompts"
+for src in "${REQUIRED_AGENT_PROMPTS[@]}"; do
+  cp -f "$src" "$BUNDLE_ROOT/agent_prompts/$(basename "$src")"
+done
+
 echo "[4/6] Copy AOI report runs into bundle (portable, shareable)"
 mkdir -p "$BUNDLE_ROOT/site/aoi_reports/runs"
 

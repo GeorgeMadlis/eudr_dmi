@@ -1,0 +1,11 @@
+schema_version: "1.0"
+
+# Required
+scp_id: "SCP-YYYY-NNN-<slug>"
+
+evidence:
+  - id: "E1"
+    kind: "bundle_path"  # bundle_path | repo_path | external
+    ref: "<e.g. site/dao_stakeholders/index.html>"
+    sha256: ""  # Optional: use when you are referencing a specific file version
+    note: "<Why this evidence matters>"

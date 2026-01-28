@@ -141,10 +141,499 @@ def _nav(*, current: str, rel_prefix: str) -> str:
     regulation = link("Regulation", f"{rel_prefix}../regulation/links.html", "regulation")
     spine = link("Spine", f"{rel_prefix}../regulation/policy_to_evidence_spine.md", "spine")
     aoi = link("AOI Reports", f"{rel_prefix}aoi_reports/index.html", "aoi")
+    dao_stakeholders = link(
+        "DAO (Stakeholders)",
+        f"{rel_prefix}dao_stakeholders/index.html",
+        "dao_stakeholders",
+    )
+    dao_dev = link(
+        "DAO (Developers)",
+        f"{rel_prefix}dao_dev/index.html",
+        "dao_dev",
+    )
+
+    nav_items = [
+        home,
+        articles,
+        dependencies,
+        regulation,
+        spine,
+        aoi,
+        dao_stakeholders,
+        dao_dev,
+    ]
+    return "\n".join(
+        ["          " + s for s in nav_items]
+    )
+
+
+def _render_dao_stakeholders_index() -> str:
     return "\n".join(
         [
-            "          " + s
-            for s in [home, articles, dependencies, regulation, spine, aoi]
+            "<h1>DAO (Stakeholders)</h1>",
+            (
+                '<p class="muted">A stakeholder-facing view for proposing and reviewing changes '
+                "to the audit documentation bundle and its inspection contracts."
+                "</p>"
+            ),
+            '<div class="card">',
+            "  <h2>Purpose</h2>",
+            "  <ul>",
+            "    <li>Provide a stable place for non-developers to propose changes.</li>",
+            "    <li>Make Q/A and review possible from a portable, offline bundle.</li>",
+            "    <li>Keep evidence and acceptance criteria explicit and auditable.</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>How to use the bundle for Q/A</h2>",
+            "  <ul>",
+            "    <li>Download the bundle (or ZIP) and open <code>index.html</code>.</li>",
+            (
+                "    <li>Use your browser find/search to locate obligations, controls, and "
+                "evidence.</li>"
+            ),
+            "    <li>When asking questions, reference concrete bundle paths (relative links).</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>Proposals</h2>",
+            "  <ul>",
+            "    <li><a href=\"proposals/index.html\">Browse proposals</a></li>",
+            "    <li><a href=\"new_proposal.html\">Create a new proposal</a></li>",
+            "    <li><a href=\"how_to_participate.html\">How to participate</a></li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>Agent prompt</h2>",
+            (
+                "  <p><a href=\"../../agent_prompts/dao_stakeholders_prompt.md\">Open "
+                "stakeholders agent prompt</a></p>"
+            ),
+            "</div>",
+            _render_related_views_card(current_view="dao_stakeholders"),
+        ]
+    )
+
+
+def _render_dao_stakeholders_how_to_participate() -> str:
+    return "\n".join(
+        [
+            "<h1>How to Participate (Stakeholders)</h1>",
+            '<p class="muted">A minimal, deterministic process for proposing improvements.</p>',
+            '<div class="card">',
+            "  <h2>Steps</h2>",
+            "  <ol>",
+            (
+                "    <li>Read the relevant pages in the bundle and note the exact paths you "
+                "reference.</li>"
+            ),
+            "    <li>Create a proposal using the provided template.</li>",
+            "    <li>State the acceptance criteria (what would prove the change is correct).</li>",
+            "    <li>Submit the proposal as a pull request (or send it to the operator).</li>",
+            "  </ol>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>Links</h2>",
+            "  <ul>",
+            "    <li><a href=\"new_proposal.html\">Create a new proposal</a></li>",
+            "    <li><a href=\"proposals/index.html\">Browse proposals</a></li>",
+            "    <li><a href=\"index.html\">Back to DAO (Stakeholders)</a></li>",
+            "  </ul>",
+            "</div>",
+        ]
+    )
+
+
+def _read_repo_text(rel_path: str) -> str:
+    path = _repo_root_from_this_file() / rel_path
+    # Deterministic normalization: always embed with LF newlines.
+    return path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n").rstrip(
+        "\n"
+    )
+
+
+def _render_related_views_card(*, current_view: str) -> str:
+    # These links must remain valid inside docs/site_bundle/...
+    # From site/<dao_view>/... to bundle root: ../../
+    task_done_means = "../../views/task_view.md#task-to-artifact-map"
+    agent_roles = "../../views/agentic_view.md#agent-roles"
+    deterministic_run = "../../views/agentic_view.md#deterministic-run-contract-for-all-agents"
+    invariants = "../../views/agentic_view.md#required-inspection-invariants"
+    twin_triggers = "../../views/digital_twin_view.md#trigger-and-rerun-rules-high-level"
+
+    other_dao_label, other_dao_href = (
+        ("DAO (Developers)", "../dao_dev/index.html")
+        if current_view == "dao_stakeholders"
+        else ("DAO (Stakeholders)", "../dao_stakeholders/index.html")
+    )
+
+    return "\n".join(
+        [
+            '<div class="card">',
+            "  <h2>Related Views</h2>",
+            "  <ul>",
+            f"    <li><a href=\"{other_dao_href}\">{html.escape(other_dao_label)}</a></li>",
+            (
+                f"    <li><a href=\"{task_done_means}\">Task view</a> — what “done” "
+                "means</li>"
+            ),
+            (
+                f"    <li><a href=\"{agent_roles}\">Agentic view</a> — roles, "
+                f"<a href=\"{deterministic_run}\">deterministic run contract</a>, "
+                f"<a href=\"{invariants}\">inspection invariants</a></li>"
+            ),
+            (
+                f"    <li><a href=\"{twin_triggers}\">Digital twin view</a> — change "
+                "triggers and rerun rules</li>"
+            ),
+            "  </ul>",
+            "</div>",
+        ]
+    )
+
+
+def _dao_new_proposal_block(*, view_id: str) -> str:
+    if view_id == "dao_stakeholders":
+        proposal_tmpl = _read_repo_text("docs/dao/templates/stakeholders/proposal.yaml")
+        evidence_tmpl = _read_repo_text("docs/dao/templates/stakeholders/evidence_refs.yaml")
+        audit_readme_block = ""
+        tree = "\n".join(
+            [
+                "proposals/",
+                "  SCP-YYYY-NNN-<slug>/",
+                "    proposal.yaml",
+                "    evidence_refs.yaml",
+            ]
+        )
+        checklist_4 = "submit as an SCP package (outside of this repo)"
+        focus = (
+            "Focus: list the affected obligations/controls and state the expected impact "
+            "on PASS/FAIL/UNDETERMINED."
+        )
+        qa = [
+            "<li><strong>Q:</strong> What is the <code>scp_id</code>? <strong>A:</strong> "
+            "Pick <code>SCP-YYYY-NNN-slug</code>.</li>",
+            "<li><strong>Q:</strong> Who is the proposer? <strong>A:</strong> Fill "
+            "<code>proposer</code>.</li>",
+            "<li><strong>Q:</strong> Which obligations/controls are affected? "
+            "<strong>A:</strong> Fill <code>affected_controls</code>.</li>",
+            "<li><strong>Q:</strong> What is your claim? <strong>A:</strong> Fill "
+            "<code>claim</code> with a single testable sentence.</li>",
+            "<li><strong>Q:</strong> How does this change PASS/FAIL/UNDETERMINED? "
+            "<strong>A:</strong> Fill <code>expected_impact</code>.</li>",
+            "<li><strong>Q:</strong> What evidence supports this? <strong>A:</strong> Add "
+            "items to <code>evidence_refs.yaml</code> using bundle paths when possible.</li>",
+        ]
+    else:
+        proposal_tmpl = _read_repo_text("docs/dao/templates/dev/proposal.yaml")
+        evidence_tmpl = _read_repo_text("docs/dao/templates/dev/evidence_refs.yaml")
+        audit_readme = "\n".join(
+            [
+                "# Reproducible artifacts (SCP)",
+                "",
+                "SCP: SCP-YYYY-NNN-<slug>",
+                "",
+                "## Goal",
+                "- Explain what change is being validated.",
+                "",
+                "## How to reproduce",
+                "1) Run the relevant tests (ruff/pytest).",
+                "2) Build the portable bundle.",
+                "3) Verify link_check.json is PASS and manifest.sha256 updated.",
+                "",
+                "## Included artifacts",
+                "- Diffs / patches (if applicable)",
+                "- Logs / exports / screenshots (if applicable)",
+                "- Notes that tie artifacts back to proposal.yaml claims",
+            ]
+        )
+        audit_readme_block = "\n".join(
+            [
+                '<div class="card">',
+                "  <h3>audit/proposals/&lt;SCP&gt;/README.md (developers)</h3>",
+                f"  <pre><code>{html.escape(audit_readme)}</code></pre>",
+                "</div>",
+            ]
+        )
+        tree = "\n".join(
+            [
+                "proposals/",
+                "  SCP-YYYY-NNN-<slug>/",
+                "    proposal.yaml",
+                "    evidence_refs.yaml",
+                "audit/",
+                "  proposals/",
+                "    SCP-YYYY-NNN-<slug>/",
+                "      README.md",
+                "      (repro steps, diffs, logs, exports, etc)",
+            ]
+        )
+        checklist_4 = "open a PR"
+        focus = (
+            "Focus: define gates, attach reproducible artifacts under "
+            "<code>audit/proposals/&lt;SCP&gt;/...</code>, and reference adoption log/spine "
+            "changes when needed."
+        )
+        qa = [
+            "<li><strong>Q:</strong> What is the <code>scp_id</code>? <strong>A:</strong> "
+            "Pick <code>SCP-YYYY-NNN-slug</code>.</li>",
+            "<li><strong>Q:</strong> Who is the proposer? <strong>A:</strong> Fill "
+            "<code>proposer</code>.</li>",
+            "<li><strong>Q:</strong> Which obligations/controls are affected? "
+            "<strong>A:</strong> Fill <code>affected_controls</code>.</li>",
+            "<li><strong>Q:</strong> What is your claim? <strong>A:</strong> Fill "
+            "<code>claim</code> with a single testable sentence.</li>",
+            "<li><strong>Q:</strong> What gates prove the change is safe? "
+            "<strong>A:</strong> Fill <code>gates</code> with the exact commands and the "
+            "expected outcomes.</li>",
+            "<li><strong>Q:</strong> How can someone reproduce the result? "
+            "<strong>A:</strong> Put instructions and artifacts under "
+            "<code>audit/proposals/&lt;SCP&gt;/</code> and reference them in "
+            "<code>evidence_refs.yaml</code>.</li>",
+            "<li><strong>Q:</strong> Does this require adoption log/spine changes? "
+            "<strong>A:</strong> If yes, list the touched paths in "
+            "<code>spine_or_adoption_log_changes</code>.</li>",
+        ]
+
+    checklist = "\n".join(
+        [
+            "<h2>Checklist</h2>",
+            '<p class="muted">This is intentionally manual: copy templates, answer the Q/A, '
+            "and submit for review.</p>",
+            '<div class="card">',
+            f"  <p class=\"muted\">{focus}</p>",
+            "  <ol>",
+            "    <li>Create folder <code>proposals/SCP-YYYY-NNN-slug/</code></li>",
+            "    <li>Copy the appropriate template files (<code>proposal.yaml</code> and "
+            "<code>evidence_refs.yaml</code>)</li>",
+            (
+                "    <li>Fill required fields: <code>scp_id</code>, <code>proposer</code>, "
+                "<code>affected_controls</code>, <code>claim</code></li>"
+            ),
+            f"    <li>{checklist_4}</li>",
+            "  </ol>",
+            "</div>",
+        ]
+    )
+
+    qa_block = "\n".join(
+        [
+            "<h2>Q/A Session (your inputs)</h2>",
+            '<div class="card">',
+            "  <ul>",
+            *["    " + s for s in qa],
+            "  </ul>",
+            "</div>",
+        ]
+    )
+
+    package_block = "\n".join(
+        [
+            "<h2>Copy/Paste Package (output)</h2>",
+            (
+                '<p class="muted">Use this as your starting point. The source-of-truth '
+                "repo templates live under <code>docs/dao/templates/</code>.</p>"
+            ),
+            '<div class="card">',
+            "  <h3>Folder tree</h3>",
+            f"  <pre><code>{html.escape(tree)}</code></pre>",
+            "</div>",
+            '<div class="card">',
+            "  <h3>proposal.yaml</h3>",
+            f"  <pre><code>{html.escape(proposal_tmpl)}</code></pre>",
+            "</div>",
+            '<div class="card">',
+            "  <h3>evidence_refs.yaml</h3>",
+            f"  <pre><code>{html.escape(evidence_tmpl)}</code></pre>",
+            "</div>",
+            audit_readme_block,
+        ]
+    )
+
+    return "\n".join([checklist, qa_block, package_block])
+
+
+def _render_dao_stakeholders_new_proposal() -> str:
+    return "\n".join(
+        [
+            "<h1>New Proposal (Stakeholders)</h1>",
+            (
+                '<p class="muted">Create a proposal directory under '
+                '<code>proposals/</code> and submit it for review.</p>'
+            ),
+            _dao_new_proposal_block(view_id="dao_stakeholders"),
+            _render_related_views_card(current_view="dao_stakeholders"),
+            '<div class="card">',
+            "  <h2>Links</h2>",
+            "  <ul>",
+            "    <li><a href=\"proposals/index.html\">Browse proposals</a></li>",
+            "    <li><a href=\"index.html\">Back to DAO (Stakeholders)</a></li>",
+            "  </ul>",
+            "</div>",
+        ]
+    )
+
+
+def _render_dao_stakeholders_proposals_index() -> str:
+    return "\n".join(
+        [
+            "<h1>Proposals (Stakeholders)</h1>",
+            '<p class="muted">This index is a placeholder until proposals are rendered.</p>',
+            '<div class="card">',
+            "  <h2>Proposals</h2>",
+            "  <ul>",
+            '    <li class="muted">(no proposals found)</li>',
+            "  </ul>",
+            "  <p><a href=\"../new_proposal.html\">Create a new proposal</a></p>",
+            "</div>",
+            '<div class="card">',
+            "  <p><a href=\"../index.html\">Back to DAO (Stakeholders)</a></p>",
+            "</div>",
+        ]
+    )
+
+
+def _render_dao_dev_index() -> str:
+    return "\n".join(
+        [
+            "<h1>DAO (Developers)</h1>",
+            (
+                '<p class="muted">A developer-facing view for implementing proposals with '
+                "determinism, portability, and audit integrity gates.</p>"
+            ),
+            '<div class="card">',
+            "  <h2>Purpose</h2>",
+            "  <ul>",
+            "    <li>Define the implementation contract for proposals.</li>",
+            (
+                "    <li>Keep outputs deterministic (no timestamps, stable ordering, LF "
+                "newlines).</li>"
+            ),
+            "    <li>Preserve link integrity inside the site bundle.</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>How to use the bundle for Q/A</h2>",
+            "  <ul>",
+            (
+                "    <li>Rebuild the bundle locally and open <code>index.html</code> to review "
+                "UX.</li>"
+            ),
+            (
+                "    <li>Run the portability link checker and review "
+                "<code>link_check.json</code>.</li>"
+            ),
+            "    <li>Verify the manifest and/or zip sha256 match after sharing.</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>Proposals</h2>",
+            "  <ul>",
+            "    <li><a href=\"proposals/index.html\">Browse proposals</a></li>",
+            "    <li><a href=\"new_proposal.html\">Create a new proposal</a></li>",
+            "    <li><a href=\"gates.html\">Gates</a></li>",
+            "    <li><a href=\"contribution_contract.html\">Contribution contract</a></li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>Agent prompt</h2>",
+            (
+                "  <p><a href=\"../../agent_prompts/dao_dev_prompt.md\">Open developers "
+                "agent prompt</a></p>"
+            ),
+            "</div>",
+            _render_related_views_card(current_view="dao_dev"),
+        ]
+    )
+
+
+def _render_dao_dev_gates() -> str:
+    return "\n".join(
+        [
+            "<h1>Gates (Developers)</h1>",
+            '<p class="muted">Minimum checks before a proposal can be accepted.</p>',
+            '<div class="card">',
+            "  <h2>Required</h2>",
+            "  <ul>",
+            "    <li><code>python -m ruff check</code> passes.</li>",
+            "    <li><code>pytest</code> passes.</li>",
+            (
+                "    <li>Portable link check passes (no <code>/</code> or <code>file://</code> "
+                "links).</li>"
+            ),
+            "    <li>Manifest written deterministically for the bundle.</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <p><a href=\"index.html\">Back to DAO (Developers)</a></p>",
+            "</div>",
+        ]
+    )
+
+
+def _render_dao_dev_contribution_contract() -> str:
+    return "\n".join(
+        [
+            "<h1>Contribution Contract (Developers)</h1>",
+            '<p class="muted">Rules for implementing changes without breaking portability.</p>',
+            '<div class="card">',
+            "  <h2>Determinism</h2>",
+            "  <ul>",
+            "    <li>No timestamps in generated HTML or JSON.</li>",
+            "    <li>Stable ordering for lists and directory walks (lexicographic sorting).</li>",
+            "    <li>Write text files with LF newlines.</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <h2>Portability</h2>",
+            "  <ul>",
+            "    <li>Use relative links that resolve inside the bundle root.</li>",
+            "    <li>Do not emit <code>file://</code> links or absolute <code>/</code> links.</li>",
+            "  </ul>",
+            "</div>",
+            '<div class="card">',
+            "  <p><a href=\"index.html\">Back to DAO (Developers)</a></p>",
+            "</div>",
+        ]
+    )
+
+
+def _render_dao_dev_new_proposal() -> str:
+    return "\n".join(
+        [
+            "<h1>New Proposal (Developers)</h1>",
+            (
+                '<p class="muted">Developer-authored proposals should include the exact gates '
+                "and test impact.</p>"
+            ),
+            _dao_new_proposal_block(view_id="dao_dev"),
+            _render_related_views_card(current_view="dao_dev"),
+            '<div class="card">',
+            "  <h2>Links</h2>",
+            "  <ul>",
+            "    <li><a href=\"proposals/index.html\">Browse proposals</a></li>",
+            "    <li><a href=\"index.html\">Back to DAO (Developers)</a></li>",
+            "  </ul>",
+            "</div>",
+        ]
+    )
+
+
+def _render_dao_dev_proposals_index() -> str:
+    return "\n".join(
+        [
+            "<h1>Proposals (Developers)</h1>",
+            '<p class="muted">This index is a placeholder until proposals are rendered.</p>',
+            '<div class="card">',
+            "  <h2>Proposals</h2>",
+            "  <ul>",
+            '    <li class="muted">(no proposals found)</li>',
+            "  </ul>",
+            "  <p><a href=\"../new_proposal.html\">Create a new proposal</a></p>",
+            "</div>",
+            '<div class="card">',
+            "  <p><a href=\"../index.html\">Back to DAO (Developers)</a></p>",
+            "</div>",
         ]
     )
 
@@ -522,6 +1011,20 @@ def build_site(*, docs_root: Path, out_root: Path, portable: bool, aoi_max_runs:
             "    <h2>AOI Reports</h2>",
             "    <p><a href=\"aoi_reports/index.html\">Open AOI report runs</a></p>",
             "  </div>",
+            "  <div class=\"card\">",
+            "    <h2>DAO (Stakeholders)</h2>",
+            (
+                "    <p><a href=\"dao_stakeholders/index.html\">Stakeholder proposals and "
+                "participation</a></p>"
+            ),
+            "  </div>",
+            "  <div class=\"card\">",
+            "    <h2>DAO (Developers)</h2>",
+            (
+                "    <p><a href=\"dao_dev/index.html\">Developer gates and contribution "
+                "contract</a></p>"
+            ),
+            "  </div>",
             "</div>",
         ]
     )
@@ -689,6 +1192,82 @@ def build_site(*, docs_root: Path, out_root: Path, portable: bool, aoi_max_runs:
             title="AOI Reports",
             nav_html=_nav(current="aoi", rel_prefix=""),
             body_html=aoi_stub_body,
+        ),
+    )
+
+    # DAO (Stakeholders)
+    _write_text(
+        out_root / "dao_stakeholders" / "index.html",
+        _html_page(
+            title="DAO (Stakeholders)",
+            nav_html=_nav(current="dao_stakeholders", rel_prefix="../"),
+            body_html=_render_dao_stakeholders_index(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_stakeholders" / "how_to_participate.html",
+        _html_page(
+            title="How to Participate (Stakeholders)",
+            nav_html=_nav(current="dao_stakeholders", rel_prefix="../"),
+            body_html=_render_dao_stakeholders_how_to_participate(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_stakeholders" / "new_proposal.html",
+        _html_page(
+            title="New Proposal (Stakeholders)",
+            nav_html=_nav(current="dao_stakeholders", rel_prefix="../"),
+            body_html=_render_dao_stakeholders_new_proposal(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_stakeholders" / "proposals" / "index.html",
+        _html_page(
+            title="Proposals (Stakeholders)",
+            nav_html=_nav(current="dao_stakeholders", rel_prefix="../../"),
+            body_html=_render_dao_stakeholders_proposals_index(),
+        ),
+    )
+
+    # DAO (Developers)
+    _write_text(
+        out_root / "dao_dev" / "index.html",
+        _html_page(
+            title="DAO (Developers)",
+            nav_html=_nav(current="dao_dev", rel_prefix="../"),
+            body_html=_render_dao_dev_index(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_dev" / "gates.html",
+        _html_page(
+            title="Gates (Developers)",
+            nav_html=_nav(current="dao_dev", rel_prefix="../"),
+            body_html=_render_dao_dev_gates(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_dev" / "contribution_contract.html",
+        _html_page(
+            title="Contribution Contract (Developers)",
+            nav_html=_nav(current="dao_dev", rel_prefix="../"),
+            body_html=_render_dao_dev_contribution_contract(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_dev" / "new_proposal.html",
+        _html_page(
+            title="New Proposal (Developers)",
+            nav_html=_nav(current="dao_dev", rel_prefix="../"),
+            body_html=_render_dao_dev_new_proposal(),
+        ),
+    )
+    _write_text(
+        out_root / "dao_dev" / "proposals" / "index.html",
+        _html_page(
+            title="Proposals (Developers)",
+            nav_html=_nav(current="dao_dev", rel_prefix="../../"),
+            body_html=_render_dao_dev_proposals_index(),
         ),
     )
 
