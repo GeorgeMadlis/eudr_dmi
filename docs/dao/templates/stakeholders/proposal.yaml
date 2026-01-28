@@ -1,0 +1,28 @@
+schema_version: "1.0"
+
+# Required
+scp_id: "SCP-YYYY-NNN-<slug>"
+proposer:
+  name: "<name>"
+  organization: "<org>"
+  contact: "<email or handle>"
+affected_controls:
+  - "<obligation/control reference>"
+claim: |
+  <One clear sentence: what should change?>
+
+# Stakeholder-specific: call out expected PASS/FAIL/UNDETERMINED impact.
+expected_impact:
+  pass_fail_undetermined: "UNDETERMINED"  # PASS | FAIL | UNDETERMINED
+  rationale: |
+    <Why this changes the outcome and under which conditions>
+
+acceptance_criteria:
+  - "<Objective, testable criterion>"
+
+bundle_paths_reviewed:
+  - "site/index.html"
+  - "regulation/links.html"
+
+notes: |
+  <Optional: additional context>

@@ -1,0 +1,16 @@
+schema_version: "1.0"
+view_id: "dao_dev"
+title: "DAO (Developers)"
+
+entrypoints:
+  prompt: "agent_prompts/dao_dev_prompt.md"
+  home: "site/dao_dev/index.html"
+  gates: "site/dao_dev/gates.html"
+  proposals: "site/dao_dev/proposals/index.html"
+
+machine_files:
+  proposals_index: "machine/dao_dev/proposals_index.yaml"
+
+notes: |
+  Packaged into the audit documentation bundle.
+  All paths are relative to the bundle root.
